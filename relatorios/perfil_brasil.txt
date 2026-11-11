@@ -1,0 +1,104 @@
+
+== Base inteira: linhas e top 10 países
+country | n
+United States | 170520
+Russia | 113881
+China | 101156
+Hong Kong | 46955
+United Kingdom | 30808
+Germany | 28975
+France | 26065
+Japan | 17567
+India | 16676
+Canada | 16389
+
+== Brasil: tamanho e período
+conversas | hashes_distintos | ips_distintos | inicio_utc | fim_utc
+11621 | 11555 | 2385 | 2023-04-09 01:12:00+00 | 2024-04-29 23:33:55+00
+
+== Brasil: por modelo
+model | n
+gpt-3.5-turbo-0301 | 3971
+gpt-3.5-turbo-0613 | 3593
+gpt-4-1106-preview | 1882
+gpt-4-0125-preview | 1334
+gpt-4-0314 | 684
+gpt-3.5-turbo-0125 | 157
+
+== Brasil: top 10 idiomas
+language | n
+Portuguese | 8797
+English | 1868
+Spanish | 158
+Japanese | 129
+Latin | 88
+Nolang | 83
+Finnish | 65
+French | 43
+Sotho | 36
+Catalan | 34
+
+== Brasil: conversas por mês
+mes | n
+2023-04 | 1277
+2023-05 | 2307
+2023-06 | 1126
+2023-07 | 661
+2023-08 | 631
+2023-09 | 740
+2023-10 | 581
+2023-11 | 823
+2023-12 | 682
+2024-01 | 539
+2024-02 | 527
+2024-03 | 1011
+2024-04 | 716
+
+== Brasil: distribuição de conversas por IP
+ips | p50_p90_p99 | maximo | ips_com_1_conversa
+2385 | [1.0, 7.0, 44.0] | 1557 | 1424
+
+== Brasil: top 10 IPs por volume
+posicao | conversas | pct_base | user_agents | dias_ativos | primeiro_dia | ultimo_dia | turnos_medios
+1 | 1557 | 13.4 | 35 | 130 | 2023-04-13 | 2024-04-03 | 2.5
+2 | 648 | 5.6 | 2 | 21 | 2023-04-17 | 2023-05-12 | 1.6
+3 | 319 | 2.7 | 2 | 27 | 2023-05-25 | 2023-06-25 | 1.4
+4 | 249 | 2.1 | 4 | 52 | 2024-02-21 | 2024-04-29 | 1.5
+5 | 207 | 1.8 | 1 | 11 | 2023-05-13 | 2023-05-23 | 1.6
+6 | 199 | 1.7 | 2 | 21 | 2023-09-05 | 2023-09-27 | 1.0
+7 | 159 | 1.4 | 16 | 68 | 2023-09-01 | 2024-03-29 | 3.5
+8 | 155 | 1.3 | 5 | 48 | 2023-12-10 | 2024-04-29 | 1.4
+9 | 145 | 1.2 | 12 | 38 | 2023-06-03 | 2024-04-24 | 3.3
+10 | 141 | 1.2 | 6 | 11 | 2023-12-23 | 2024-01-03 | 2.0
+
+== Brasil: IP e user-agent variam dentro da mesma conversa?
+conversas | ip_varia | ua_varia | ua_nulo
+11621 | 175 | 0 | 0
+
+== Brasil: conversation_hash repetido
+n_repeticoes | hashes
+1 | 11528
+2 | 16
+3 | 5
+4 | 2
+5 | 1
+7 | 1
+10 | 1
+16 | 1
+
+== Brasil: esquema
+column_name | column_type | null | key | default | extra
+conversation_hash | VARCHAR | YES | None | None | None
+model | VARCHAR | YES | None | None | None
+timestamp | TIMESTAMP WITH TIME ZONE | YES | None | None | None
+conversation | STRUCT("content" VARCHAR, country VARCHAR, hashed_ip VARCHAR, "header" STRUCT("accept-language" VARCHAR, "user-agent" VARCHAR), "language" VARCHAR, redacted BOOLEAN, "role" VARCHAR, state VARCHAR, "timestamp" TIMESTAMP WITH TIME ZONE, toxic BOOLEAN, turn_identifier BIGINT)[] | YES | None | None | None
+turn | BIGINT | YES | None | None | None
+language | VARCHAR | YES | None | None | None
+openai_moderation | STRUCT(categories STRUCT(harassment BOOLEAN, "harassment/threatening" BOOLEAN, harassment_threatening BOOLEAN, hate BOOLEAN, "hate/threatening" BOOLEAN, hate_threatening BOOLEAN, "self-harm" BOOLEAN, "self-harm/instructions" BOOLEAN, "self-harm/intent" BOOLEAN, self_harm BOOLEAN, self_harm_instructions BOOLEAN, self_harm_intent BOOLEAN, sexual BOOLEAN, "sexual/minors" BOOLEAN, sexual_minors BOOLEAN, violence BOOLEAN, "violence/graphic" BOOLEAN, violence_graphic BOOLEAN), category_scores STRUCT(harassment DOUBLE, "harassment/threatening" DOUBLE, harassment_threatening DOUBLE, hate DOUBLE, "hate/threatening" DOUBLE, hate_threatening DOUBLE, "self-harm" DOUBLE, "self-harm/instructions" DOUBLE, "self-harm/intent" DOUBLE, self_harm DOUBLE, self_harm_instructions DOUBLE, self_harm_intent DOUBLE, sexual DOUBLE, "sexual/minors" DOUBLE, sexual_minors DOUBLE, violence DOUBLE, "violence/graphic" DOUBLE, violence_graphic DOUBLE), flagged BOOLEAN)[] | YES | None | None | None
+detoxify_moderation | STRUCT(identity_attack DOUBLE, insult DOUBLE, obscene DOUBLE, severe_toxicity DOUBLE, sexual_explicit DOUBLE, threat DOUBLE, toxicity DOUBLE)[] | YES | None | None | None
+toxic | BOOLEAN | YES | None | None | None
+redacted | BOOLEAN | YES | None | None | None
+state | VARCHAR | YES | None | None | None
+country | VARCHAR | YES | None | None | None
+hashed_ip | VARCHAR | YES | None | None | None
+header | STRUCT("accept-language" VARCHAR, "user-agent" VARCHAR) | YES | None | None | None

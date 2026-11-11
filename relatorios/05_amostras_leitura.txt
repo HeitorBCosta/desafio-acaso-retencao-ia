@@ -1,0 +1,113 @@
+
+== [MEDIDO] Ligação silver x bronze
+linhas | conversas
+2533 | 2533
+
+== [MEDIDO] Primeiras respostas por faixa de tamanho (caracteres)
+faixa_inicio | usuarios
+0 | 5
+10 | 12
+20 | 88
+30 | 318
+40 | 40
+50 | 27
+60 | 23
+70 | 20
+80 | 13
+90 | 18
+
+== [MEDIDO] Respostas < 50 caracteres: textos distintos
+usuarios | textos_distintos
+463 | 149
+
+05_respostas_curtas_frequentes.csv: 30 textos (top 30 por frequência)
+
+== [MEDIDO] Perguntas < 20 caracteres: textos distintos (comparados em minúsculas, sem espaços nas pontas)
+usuarios | textos_distintos
+635 | 216
+05_perguntas_curtas_frequentes.csv: 30 textos (top 30 por frequência)
+
+== [MEDIDO] Idioma 'Outros' por rótulo original
+idioma | usuarios
+Nolang | 42
+Finnish | 34
+Spanish | 30
+Sotho | 27
+Hungarian | 20
+Maori | 20
+Latin | 14
+French | 13
+Tswana | 9
+Chinese | 8
+Esperanto | 6
+Romanian | 6
+Italian | 5
+Estonian | 5
+Tagalog | 5
+German | 5
+Catalan | 4
+Irish | 4
+Danish | 4
+Japanese | 4
+Welsh | 3
+Somali | 3
+Russian | 3
+Swahili | 3
+Albanian | 2
+Slovak | 2
+Persian | 2
+Dutch | 2
+Basque | 2
+Azerbaijani | 2
+Bokmal | 1
+Swedish | 1
+Korean | 1
+Zulu | 1
+Turkish | 1
+Indonesian | 1
+Shona | 1
+Bosnian | 1
+Afrikaans | 1
+Nynorsk | 1
+Latvian | 1
+Tsonga | 1
+05_idioma_outros.csv: 100 conversas (amostra aleatória)
+05_recusa_todas_marcadas.csv: 116 conversas (todas)
+
+== [MEDIDO] Não marcadas como recusa, com palavra-chave ampla de recusa na resposta
+nao_marcadas | nao_marcadas_com_palavra_chave
+2417 | 140
+05_recusa_dirigida.csv: 140 conversas (até 150, aleatórias entre as com palavra-chave)
+
+== [DERIVADO] Primeira mensagem sem pedido (campos do script 04)
+vazia | so_saudacao | so_teste | curtas_sem_marca
+72 | 374 | 19 | 170
+05_saudacao_teste_textos.csv: 53 textos distintos marcados (todos)
+05_curtas_sem_marca.csv: 30 textos (top 30; perguntas < 20 caracteres sem marca)
+
+== [MEDIDO] Primeira mensagem vazia, por idioma atribuído pela base
+idioma | usuarios
+Nolang | 42
+Portuguese | 24
+English | 6
+
+== [MEDIDO] Primeira mensagem vazia, por nº de turnos
+faixa | usuarios
+1 | 36
+2 | 13
+3 | 9
+4 | 3
+5+ | 11
+05_resposta_a_pergunta_vazia.csv: 30 respostas (top 30)
+
+== [DERIVADO] Primeira mensagem vazia, por tipo (campo do script 04)
+pergunta_vazia_tipo | usuarios
+texto_ausente | 45
+confirmada | 18
+indeterminada | 9
+05_pergunta_vazia_todas.csv: 72 conversas (todas, com o tipo dado pela regra)
+
+== [MEDIDO] Primeira resposta começando com vírgula
+usuarios | com_redacted
+8 | 0
+05_resposta_comeca_virgula.csv: 8 conversas (todas)

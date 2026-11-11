@@ -1,0 +1,24 @@
+Desfecho: retorno_7d_30min | base: 2482 usuários elegíveis
+Recusas (def. B): 126
+Leitura fixada antes de rodar: ver cabeçalho do script.
+
+== Bruto por motivo (taxa de retorno, IC 95% de Wilson; diferença vs sem recusa, IC de Newcombe)
+motivo | grupo | usuários | voltaram | taxa [IC95] | diferença pp [IC95]
+sem recusa | — | 2356 | 582 | 24.7% [23.0%; 26.5%] | referência
+capacidade | limitação do produto | 60 | 3 | 5.0% [1.7%; 13.7%] | -19.7 [-23.4; -10.8]
+conhecimento | limitação do produto | 23 | 3 | 13.0% [4.5%; 32.1%] | -11.7 [-20.3; +7.5]
+politica | política de conteúdo | 40 | 9 | 22.5% [12.3%; 37.5%] | -2.2 [-12.5; +12.9]
+desconhecido | desconhecido | 3 | 1 | 33.3% [6.1%; 79.2%] | +8.6 [-18.6; +54.6]
+(total do grupo) | limitação do produto | 83 | 6 | 7.2% [3.4%; 14.9%] | -17.5 [-21.7; -9.6]
+(total do grupo) | política de conteúdo | 40 | 9 | 22.5% [12.3%; 37.5%] | -2.2 [-12.5; +12.9]
+
+== Ajustado (mesmo modelo do script 07, recusa trocada pelo grupo de motivo)
+Fora do modelo: 3 usuário(s) com motivo desconhecido
+[MEDIDO] 2479 usuários, pseudo-R² 0.039
+grupo | usuários | voltaram | ajustado pp [IC95] | IC exclui 0 | sinal em 1h / 24h / outro dia
+limitação do produto | 83 | 6 | -17.5 [-23.3; -11.7] | sim | -15.3 / -9.1 / -9.1  (poucos retornos: IC pouco confiável)
+política de conteúdo | 40 | 9 | -1.2 [-14.3; +11.9] | não | -4.0 / -3.1 / -0.4  (poucos retornos: IC pouco confiável)
+
+== Aplicação da leitura fixada
+Só a limitação do produto tem IC abaixo de zero: a leitura 'o produto contribui' fica mais forte.
+Limite: motivo foi lido pelo Claude (conferência do Heitor pendente); grupos pequenos.

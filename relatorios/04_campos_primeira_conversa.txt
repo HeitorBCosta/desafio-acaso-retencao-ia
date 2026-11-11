@@ -1,0 +1,126 @@
+Decisões e premissas desta execução:
+  BDR-001 usuário = hashed_ip + SO + navegador
+  BDR-002 primeira experiência = primeira conversa (pela 1ª resposta do assistente)
+  fuso do campo horário: America/Sao_Paulo
+  recusa: padrões v1 na 1ª resposta do assistente (lista no código)
+  BDR-004 sem campo 'resposta muito curta'; no lugar: pergunta vazia / só saudação / só teste
+  BDR-004 (atualização) pergunta vazia separada em confirmada / indeterminada / texto_ausente
+  rótulos manuais aplicados: docs\rotulos\pergunta_vazia_tipo.csv
+
+== [MEDIDO] Consistência da base (todas as conversas)
+conversas | item1_nao_e_usuario | turn_diferente_de_respostas_ia | sem_horario_de_resposta | inicio_depois_do_fim | toxic_true | redacted_true
+11621 | 0 | 0 | 0 | 0 | 0 | 56
+
+== [MEDIDO] Usuários e primeiras conversas
+usuarios | conversas_distintas | primeira_utc | ultima_utc
+2533 | 2533 | 2023-04-09 00:11:46+00 | 2024-04-29 20:01:38+00
+
+== [DERIVADO] Modelo (família e versão)
+modelo_familia | modelo_versao | usuarios | pct
+GPT-3.5 | gpt-3.5-turbo-0613 | 895 | 35.3
+GPT-3.5 | gpt-3.5-turbo-0301 | 460 | 18.2
+GPT-4 | gpt-4-1106-preview | 433 | 17.1
+GPT-4 | gpt-4-0125-preview | 417 | 16.5
+GPT-4 | gpt-4-0314 | 286 | 11.3
+GPT-3.5 | gpt-3.5-turbo-0125 | 42 | 1.7
+
+== [MEDIDO] Nº de turnos da primeira conversa
+faixa | usuarios | pct
+1 | 1184 | 46.7
+2 | 592 | 23.4
+3 | 285 | 11.3
+4 | 147 | 5.8
+5+ | 325 | 12.8
+
+== [DERIVADO] Hora local (America/Sao_Paulo) da primeira conversa
+hora_local | usuarios
+0 | 85
+1 | 73
+2 | 41
+3 | 34
+4 | 21
+5 | 12
+6 | 20
+7 | 38
+8 | 88
+9 | 127
+10 | 171
+11 | 144
+12 | 128
+13 | 144
+14 | 152
+15 | 144
+16 | 137
+17 | 133
+18 | 163
+19 | 146
+20 | 158
+21 | 160
+22 | 111
+23 | 103
+
+== [DERIVADO] Dia da semana (1 = segunda ... 7 = domingo)
+dia_semana_iso | usuarios
+1 | 436
+2 | 380
+3 | 382
+4 | 362
+5 | 308
+6 | 375
+7 | 290
+
+== [DERIVADO] Idioma
+idioma_grupo | usuarios | pct
+Português | 1701 | 67.2
+Inglês | 531 | 21.0
+Outros | 301 | 11.9
+
+== [DERIVADO] Tamanho da pergunta e da resposta (caracteres)
+campo | p10_p25_p50_p75_p90_p99 | minimo | maximo
+pergunta | [3.0, 19.0, 60.0, 194.0, 930.0000000000009, 16816.95999999991] | 0 | 256777
+resposta | [33.0, 137.0, 942.0, 2086.0, 3023.4000000000005, 5003.879999999989] | 2 | 15771
+
+== [DERIVADO] Primeira mensagem sem pedido (BDR-004)
+usuarios | vazia | so_saudacao | so_teste | algum_dos_tres | em_mais_de_um
+2533 | 72 | 374 | 19 | 465 | 0
+
+== [DERIVADO] Primeira mensagem vazia, por tipo (rótulo manual; regra quando não houver)
+pergunta_vazia_tipo | usuarios
+texto_ausente | 32
+confirmada | 21
+indeterminada | 19
+
+== [MEDIDO] Regra x rótulo manual (mensagens vazias)
+regra | final | usuarios
+confirmada | confirmada | 18
+indeterminada | indeterminada | 9
+texto_ausente | confirmada | 3
+texto_ausente | indeterminada | 10
+texto_ausente | texto_ausente | 32
+
+== [MEDIDO] Cobertura dos rótulos (mensagens vazias sem rótulo e rótulos sem conversa)
+vazias_sem_rotulo | rotulos_sem_conversa
+0 | 0
+
+== [MEDIDO] Respostas curtas: quantos usuários abaixo de cada tamanho (só descritivo, BDR-004)
+vazia | menos_de_20 | menos_de_50 | menos_de_100 | usuarios
+0 | 17 | 463 | 564 | 2533
+
+== [DERIVADO] Código, recusa, conteúdo repetido, moderação
+usuarios | tem_codigo | recusa | conteudo_repetido | moderacao_sinalizada | toxic | redacted
+2533 | 126 | 116 | 66 | 0 | 0 | 16
+
+== [DERIVADO] Recusa por padrão (primeiro padrão que casou)
+recusa_padrao | usuarios
+pt_nao_posso_verbo | 29
+pt_como_ia_nao | 22
+en_i_cant_verbo | 22
+pt_desculpe_nao | 19
+en_ai_model_cant | 13
+en_sorry_but_cant | 11
+
+== Amostras para conferência manual (data/amostras/, até 100 linhas cada; preencha avaliacao_sim_nao)
+  recusa_marcadas.csv: população 116; pergunta: A resposta é uma recusa?
+  recusa_nao_marcadas.csv: população 2417; pergunta: A resposta é uma recusa?
+  codigo_marcadas.csv: população 126; pergunta: Há código na pergunta ou na resposta?
+  codigo_nao_marcadas.csv: população 2407; pergunta: Há código na pergunta ou na resposta?

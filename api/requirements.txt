@@ -1,0 +1,4 @@
+# Versões fixadas depois da primeira instalação (pip freeze); ver README.
+fastapi
+uvicorn[standard]
+psycopg[binary,pool]

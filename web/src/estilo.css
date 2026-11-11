@@ -1,0 +1,111 @@
+:root {
+  color-scheme: light;
+  --superficie: #fcfcfb;
+  --fundo: #f5f4f1;
+  --borda: #e4e3df;
+  --texto: #0b0b0b;
+  --texto-2: #52514e;
+  --texto-3: #6f6e69;
+  --azul: #2a78d6;
+  --azul-claro: #cde2fb;
+  --cinza: #8a8985;
+  --alerta: #8a4b00;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+  line-height: 1.45;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+h1, h2, h3 { margin: 0; }
+h1 { font-size: 1.35rem; }
+h2 { font-size: 1.15rem; margin: 8px 0 16px; }
+h3 { font-size: 1rem; }
+button { font: inherit; cursor: pointer; }
+
+.pagina { max-width: 1120px; margin: 0 auto; padding: 16px 20px 32px; }
+
+.topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+  padding-bottom: 12px; border-bottom: 1px solid var(--borda); margin-bottom: 16px; }
+.subtitulo-topo { margin: 4px 0 0; color: var(--texto-2); }
+
+.abas, .alternador { display: flex; gap: 4px; background: var(--borda); padding: 3px; border-radius: 8px; }
+.abas button, .alternador button { border: 0; background: transparent; padding: 6px 14px; border-radius: 6px;
+  color: var(--texto-2); }
+.abas button.ativo, .alternador button.ativo { background: var(--superficie); color: var(--texto);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08); }
+
+.filtros { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-bottom: 16px; }
+.filtros label { display: flex; gap: 8px; align-items: center; color: var(--texto-2); }
+.filtros input { font: inherit; padding: 4px 6px; border: 1px solid var(--borda); border-radius: 6px;
+  background: var(--superficie); }
+
+.link { border: 0; background: none; color: var(--azul); padding: 0; text-decoration: underline; }
+
+.cartoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.cartao, .painel, .achado { background: var(--superficie); border: 1px solid var(--borda); border-radius: 10px; }
+.cartao { padding: 14px 16px; }
+.cartao-titulo { color: var(--texto-2); font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+.cartao-valor { font-size: 2rem; font-weight: 600; margin: 4px 0; }
+.cartao-detalhe { color: var(--texto-3); font-size: 0.85rem; }
+
+.painel { padding: 16px; margin-bottom: 16px; }
+.painel-cabecalho { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.subtitulo { font-size: 0.9rem; color: var(--texto-2); font-weight: 500; margin: 16px 0 4px; }
+.explica { color: var(--texto-2); font-size: 0.9rem; margin: 4px 0 12px; }
+.notas { color: var(--texto-2); font-size: 0.85rem; padding-left: 18px; margin: 12px 0 0; }
+.notas li { margin: 4px 0; }
+.nota-rodape { color: var(--texto-3); font-size: 0.85rem; margin: 12px 0 0; }
+
+.legenda-ponto { display: inline-block; width: 10px; height: 10px; border-radius: 50%; vertical-align: middle;
+  border: 2px solid var(--azul); }
+.legenda-ponto.cheio { background: var(--azul); }
+.legenda-ponto.vazado { background: var(--superficie); }
+.legenda-ponto.cinza { border-color: var(--cinza); }
+
+.ajuda { position: relative; display: inline-flex; }
+.ajuda-botao { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--cinza); background: var(--superficie);
+  color: var(--texto-2); font-size: 0.7rem; line-height: 1; padding: 0; }
+.ajuda-texto { position: absolute; z-index: 10; top: 24px; left: -8px; width: 300px; display: flex; flex-direction: column;
+  gap: 4px; padding: 10px 12px; background: var(--superficie); border: 1px solid var(--borda); border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.12); color: var(--texto); font-size: 0.85rem; font-weight: 400; }
+.fonte { color: var(--texto-3); font-size: 0.8rem; }
+
+.dica { background: var(--superficie); border: 1px solid var(--borda); border-radius: 8px; padding: 8px 10px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.12); font-size: 0.85rem; display: flex; flex-direction: column; gap: 2px; }
+.aviso { color: var(--alerta); }
+.erro { color: #b42318; background: #fef3f2; border: 1px solid #fecdca; padding: 8px 12px; border-radius: 8px; }
+.carregando { color: var(--texto-2); }
+
+.achados { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.achado { padding: 14px 16px; }
+.achado h3 { margin-bottom: 8px; }
+.achado p { margin: 6px 0; font-size: 0.92rem; }
+.decisao { border-left: 3px solid var(--azul); padding-left: 8px; }
+.limite { color: var(--texto-3); font-size: 0.85rem; }
+
+.grafico-efeitos { margin: 0; }
+.grafico-efeitos svg { display: block; overflow: visible; }
+.grafico-efeitos .eixo { font-size: 11px; fill: var(--texto-3); }
+.grafico-efeitos .rotulo-fator { font-size: 12px; fill: var(--texto-2); }
+.grafico-efeitos .rotulo-nivel { font-size: 13px; fill: var(--texto); font-weight: 500; }
+.grafico-efeitos .rotulo-ref { font-size: 11px; fill: var(--texto-3); font-weight: 400; }
+.grafico-efeitos .valor { font-size: 13px; fill: var(--texto); font-weight: 600; }
+.grafico-efeitos .faixa { fill: transparent; }
+.grafico-efeitos .faixa-ativa { fill: #f0efec; }
+.linha-efeito { cursor: default; outline: none; }
+.linha-efeito:focus-visible .faixa, .linha-efeito:focus-visible .faixa-ativa { stroke: var(--azul); stroke-width: 1.5; }
+.detalhe-efeito { min-height: 92px; margin-top: 8px; padding: 10px 12px; border: 1px dashed var(--borda); border-radius: 8px;
+  font-size: 0.88rem; display: flex; flex-direction: column; gap: 3px; }
+
+.tabela-rolagem { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--borda); }
+th { color: var(--texto-2); font-weight: 500; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.rodape { margin-top: 24px; color: var(--texto-3); font-size: 0.8rem; border-top: 1px solid var(--borda); padding-top: 12px; }
+.rodape p { margin: 4px 0; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

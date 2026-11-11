@@ -1,0 +1,33 @@
+Decisões e premissas desta execução:
+  BDR-001 usuário = hashed_ip + SO + navegador
+  BDR-002 primeira experiência = primeira conversa
+  BDR-003 retorno = 2ª sessão até 7 dias após a 1ª conversa; regra principal: 30min
+  início da conversa = 1ª resposta do assistente; fim = coluna timestamp (última resposta)
+  elegível = 1ª conversa pelo menos 7 dias antes do fim dos dados
+  IC 95% de Wilson, supondo usuários independentes
+
+== [MEDIDO] Consistência com o silver (todos devem ser 0, exceto os totais)
+usuarios_conv | usuarios_silver | silver_sem_conversa | conv_sem_silver | primeira_conversa_diferente
+2533 | 2533 | 0 | 0 | 0
+
+== [MEDIDO sob cada PREMISSA] Retorno em 7 dias
+regra | elegiveis | voltaram | taxa | ic95
+30min | 2482 | 598 | 24.1% | [22.5%, 25.8%]  <- principal (BDR-003)
+1h | 2482 | 542 | 21.8% | [20.3%, 23.5%]
+2h | 2482 | 501 | 20.2% | [18.7%, 21.8%]
+6h | 2482 | 421 | 17.0% | [15.5%, 18.5%]
+12h | 2482 | 380 | 15.3% | [13.9%, 16.8%]
+24h | 2482 | 280 | 11.3% | [10.1%, 12.6%]
+outro_dia_utc | 2482 | 440 | 17.7% | [16.3%, 19.3%]
+outro_dia_sp | 2482 | 426 | 17.2% | [15.7%, 18.7%]
+
+== [MEDIDO] Conferência com o script 03 (30 min, ip+so+navegador, início+fim)
+esperado: 2482 elegíveis, 598 voltaram | obtido: 2482 elegíveis, 598 voltaram | OK
+
+== [MEDIDO] Horas até a 2ª sessão, entre quem voltou em 7 dias (regra principal)
+usuarios | p10_p25_p50_p75_p90
+598 | [0.9950000000000001, 2.2541666666666664, 11.108333333333334, 41.637499999999996, 81.92666666666668]
+
+== [MEDIDO] Base de análise gravada
+linhas | usuarios
+2533 | 2533

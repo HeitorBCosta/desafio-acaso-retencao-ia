@@ -1,0 +1,101 @@
+Usuários elegíveis: 2482
+  sem nenhum termo depois da limpeza (vazios, só números, só palavras vazias): 289
+  agrupados: 2193
+Vocabulário TF-IDF: 3928 termos
+Variância explicada pelas 100 dimensões: 26.1%
+
+  k  estabilidade (ARI médio)  ARI mín  silhueta  menor grupo  maior grupo
+  6                     0.641    0.457     0.054          143          996
+  8                     0.633    0.543     0.065           61          894
+ 10                     0.558    0.467     0.070           26          879
+ 12                     0.475    0.383     0.088           59          622
+ 15                     0.486    0.409     0.105           38          572
+ 20                     0.441    0.344     0.121           35          411
+
+Regra [PREMISSA]: maior k com estabilidade >= 0.8 e todos os grupos >= 30.
+  passam: nenhum (usado o k mais estável)
+  k sugerido pela regra: 6
+  maior grupo no k sugerido: 45% dos agrupados (ACIMA do limite: agrupamento não serve para tema)
+
+=== k = 6: termos mais fortes de cada grupo (semente 0) ===
+  grupo  0 |  143 usuários | faca, quais, faca resumo, resumo, faca texto, principais, texto, livro, palavras, script, faca lista, pesquisa
+  grupo  1 |  212 usuários | crie, preciso, video, imagem, quero, texto, crie imagem, criar, lista, nome, descricao, youtube
+  grupo  2 |  207 usuários | create, write, code, list, import, image, text, script, const, return, int, using
+  grupo  3 |  249 usuários | like, time, want, use, just, need, make, don, know, people, say, human
+  grupo  4 |  386 usuários | forma, texto, dados, valor, pessoas, empresa, deve, trabalho, vida, anos, processo, tempo
+  grupo  5 |  996 usuários | explique, escreva, criar, portugues, texto, brasil, melhor, fale, usar, posso, site, forma
+
+=== k = 8: termos mais fortes de cada grupo (semente 0) ===
+  grupo  0 |  341 usuários | forma, valor, vida, anos, deve, pessoas, apenas, pessoa, resposta, tempo, dados, abaixo
+  grupo  1 |   61 usuários | descreva, detalhes, piloto, equipe, acidente, projeto, gp, descreva acidente, formula, descreva projeto, entrar, manaus
+  grupo  2 |  313 usuários | make, like, write, want, time, use, need, just, know, don, say, words
+  grupo  3 |  109 usuários | import, const, return, code, int, text, string, function, var, codigo, script, true
+  grupo  4 |  264 usuários | quais, texto, preciso, empresa, tema, trabalho, pesquisa, principais, escreva, aprendizagem, escola, projeto
+  grupo  5 |  894 usuários | explique, criar, portugues, create, escreva, quero, melhor, posso, usar, site, modelo, simples
+  grupo  6 |  114 usuários | crie, crie imagem, imagem, video, youtube, titulo, crie frases, letra, historia, questoes, crie questoes, quero
+  grupo  7 |   97 usuários | faca, faca resumo, faca texto, resumo, texto, livro, resume, palavras, frase, apresentacao, descricao, marketing
+
+=== k = 10: termos mais fortes de cada grupo (semente 0) ===
+  grupo  0 |  303 usuários | anos, valor, forma, vida, pessoa, deve, resposta, nome, apenas, sempre, pessoas, abaixo
+  grupo  1 |   64 usuários | quais, principais, funcoes, beneficios, primeiros, numeros, diferencas, uso, sistema, melhorar, forca, quais principais
+  grupo  2 |  879 usuários | faca, texto, criar, preciso, escreva, portugues, quero, brasil, site, fale, posso, video
+  grupo  3 |  140 usuários | explique, descreva, detalhes, piloto, equipe, acidente, gp, projeto, ball, dragon, descreva acidente, dragon ball
+  grupo  4 |  191 usuários | dados, empresa, trabalho, texto, processo, alternativa, desenvolvimento, analise, tema, forma, acesso, ambiente
+  grupo  5 |  119 usuários | crie, crie imagem, imagem, video, youtube, titulo, quero, historia, letra, crie frases, codigo, crie questoes
+  grupo  6 |  224 usuários | like, time, want, use, just, don, need, know, people, human, say, world
+  grupo  7 |  123 usuários | write, import, return, const, int, string, text, script, codigo, value, var, code
+  grupo  8 |   26 usuários | deve, algo, fosse, opiniao, expressar, absoluto, resposta, ficcional, passo, assuntos, existisse, hipotetico
+  grupo  9 |  124 usuários | create, make, image, images, code, want, use, using, create image, like, game, need
+
+=== k = 12: termos mais fortes de cada grupo (semente 0) ===
+  grupo  0 |   62 usuários | quais, principais, funcoes, beneficios, primeiros, numeros, diferencas, forca, sistema, uso, melhorar, quais principais
+  grupo  1 |  276 usuários | dados, valor, forma, texto, alternativa, pessoas, seguintes, deve, processo, abaixo, tempo, correta
+  grupo  2 |  136 usuários | write, create, make, list, image, story, words, code, use, want, script, create image
+  grupo  3 |   89 usuários | import, const, return, int, string, text, codigo, code, function, var, value, true
+  grupo  4 |  133 usuários | anos, vida, nome, pessoa, crianca, historia, primeira, amor, fosse, sempre, samanun, tenho
+  grupo  5 |  622 usuários | explique, brasil, portugues, simples, fale, posso, usar, api, forma, linguagem, seja, resumo
+  grupo  6 |  227 usuários | preciso, criar, site, imagem, imagens, quero, hoje, texto, instagram, empresa, video, nome
+  grupo  7 |   91 usuários | faca, faca resumo, faca texto, resumo, livro, texto, palavras, resume, apresentacao, frase, redacao, descricao
+  grupo  8 |  111 usuários | crie, crie imagem, video, youtube, titulo, imagem, quero, letra, crie frases, crie questoes, questoes, historia
+  grupo  9 |  222 usuários | like, time, want, just, use, need, don, know, say, people, human, generate
+  grupo 10 |  165 usuários | escreva, tema, texto, quanto, ingles, escreva texto, tempo, en, frase, escola, quanto tempo, aprendizagem
+  grupo 11 |   59 usuários | descreva, detalhes, piloto, equipe, acidente, projeto, gp, descreva acidente, formula, descreva projeto, entrar, manaus
+
+=== k = 15: termos mais fortes de cada grupo (semente 0) ===
+  grupo  0 |   58 usuários | quais, principais, funcoes, beneficios, primeiros, numeros, diferencas, sistema, forca, melhorar, uso, quais principais
+  grupo  1 |   38 usuários | create, story, images, image, create image, code, like, want, know, game, woman, going
+  grupo  2 |   84 usuários | import, const, return, int, string, codigo, var, function, value, text, true, script
+  grupo  3 |  210 usuários | like, time, want, just, use, don, need, know, say, people, world, text
+  grupo  4 |   89 usuários | faca, faca resumo, faca texto, resumo, livro, texto, palavras, resume, descricao, frase, apresentacao, redacao
+  grupo  5 |  572 usuários | tempo, fale, youtube, melhor, modelo, quanto, resumo, historia, list, final, linguagem, traduza
+  grupo  6 |   60 usuários | descreva, detalhes, piloto, equipe, acidente, projeto, gp, descreva acidente, formula, descreva projeto, entrar, manaus
+  grupo  7 |  346 usuários | preciso, escreva, criar, texto, site, quero, nome, imagens, tenho, hoje, tema, empresa
+  grupo  8 |   55 usuários | write, words, story, write script, detailed, song, prompt, write chapter, chapter, environment, script, description
+  grupo  9 |  112 usuários | crie, crie imagem, imagem, video, youtube, titulo, crie frases, letra, questoes, crie questoes, historia, frases
+  grupo 10 |   53 usuários | make, image, use, code, want, need, using, create, list, like, character, game
+  grupo 11 |   88 usuários | brasil, posso, usar, presidente, presidente brasil, api, forma, alguma, deve, algo, pergunta, resposta
+  grupo 12 |   38 usuários | portugues, fala portugues, fala, responda, imagem, brasil, texto, responde, usa, nomes, preciso, portugues brasil
+  grupo 13 |   59 usuários | explique, explique detalhadamente, traumas, detalhadamente, simples, cabeca, coluna, forma, passo, trauma, traumas cabeca, primeiros
+  grupo 14 |  331 usuários | texto, dados, forma, pessoas, valor, vida, deve, anos, empresa, trabalho, processo, alternativa
+
+=== k = 20: termos mais fortes de cada grupo (semente 0) ===
+  grupo  0 |   54 usuários | explique, explique detalhadamente, detalhadamente, simples, passo, forma, traumas, cabeca, trauma, teoria, funciona, crianca
+  grupo  1 |  205 usuários | like, time, want, just, use, don, need, know, people, say, text, human
+  grupo  2 |   81 usuários | import, const, return, int, string, codigo, var, function, value, text, true, script
+  grupo  3 |  205 usuários | brasil, texto, fale, empresa, tema, instagram, melhor, seja, forma, trabalho, ambiente, aprendizagem
+  grupo  4 |   94 usuários | create, make, image, code, want, using, use, create image, story, game, character, like
+  grupo  5 |  236 usuários | historia, vida, anos, nome, filme, pessoa, dragon, ball, dragon ball, resuma, amor, personagem
+  grupo  6 |  142 usuários | dados, alternativa, texto, correta, forma, assinale, processo, assinale alternativa, sistema, analise, desenvolvimento, questoes
+  grupo  7 |   48 usuários | imagens, internet, portuguese, speak, did, speak portuguese, link, site, consegue, usa, acesso, gerar
+  grupo  8 |   60 usuários | descreva, detalhes, piloto, equipe, acidente, projeto, gp, descreva acidente, formula, descreva projeto, entrar, manaus
+  grupo  9 |   70 usuários | preciso, preciso texto, texto, seja, tcc, lista, empresa, pesquisa, descricao, publico, tenho, projeto
+  grupo 10 |  411 usuários | portugues, site, modelo, list, linguagem, hoje, posso, teste, diferenca, model, quero, traduza
+  grupo 11 |   84 usuários | faca, faca resumo, faca texto, resumo, texto, livro, palavras, resume, frase, apresentacao, descricao, redacao
+  grupo 12 |   47 usuários | write, words, story, write script, song, write chapter, chapter, script, chapter words, write story, man, world
+  grupo 13 |   56 usuários | quais, principais, funcoes, beneficios, primeiros, numeros, diferencas, sistema, forca, uso, melhorar, quais principais
+  grupo 14 |   64 usuários | imagem, criar, criar imagem, crie imagem, crie, prompt, gere, gere imagem, consegue, imagens, portugues, nome
+  grupo 15 |   49 usuários | escreva, escreva texto, texto, ingles, tema, plano, frase, historia, negocios, ingles nativo, palavras, nativo
+  grupo 16 |   98 usuários | crie, video, youtube, crie imagem, letra, crie frases, titulo, historia, questoes, frases, crie questoes, codigo
+  grupo 17 |  110 usuários | valor, receita, total, kg, quantidade, numero, tempo, caso, velocidade, valores, abaixo, deve
+  grupo 18 |   35 usuários | api, usar, key, api key, posso, diga, acessar, fornecer, quero, consigo, utiliza, alguma
+  grupo 19 |   44 usuários | deve, respostas, partir, resposta, algo, expressar, agora, fosse, partir agora, opiniao, pergunta, palavras

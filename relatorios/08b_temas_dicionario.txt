@@ -1,0 +1,34 @@
+Usuários elegíveis: 2482
+
+tema (atribuído)                  usuários       %   casaram com este tema (qualquer posição)
+sem pedido                             181    7.3%                                        181
+programação e planilhas                243    9.8%                                        243
+perguntas sobre o assistente           132    5.3%                                        145
+instruções de persona                   97    3.9%                                        105
+imagem e vídeo                          94    3.8%                                        114
+tradução e idiomas                      44    1.8%                                         53
+escola e exercícios                    167    6.7%                                        220
+negócios e marketing                   149    6.0%                                        252
+histórias e ficção                     146    5.9%                                        207
+redação e textos                       212    8.5%                                        507
+perguntas e explicações                641   25.8%                                       1445
+outros                                 376   15.1%                                        376
+
+Casaram com 2+ temas (a ordem decidiu): 939 de 2301 com pedido (40.8%)
+  pares mais comuns (atribuído <- segundo que também casou):
+    redação e textos <- perguntas e explicações: 101
+    perguntas sobre o assistente <- perguntas e explicações: 88
+    programação e planilhas <- perguntas e explicações: 72
+    escola e exercícios <- perguntas e explicações: 60
+    histórias e ficção <- perguntas e explicações: 59
+    negócios e marketing <- perguntas e explicações: 53
+    negócios e marketing <- redação e textos: 49
+    histórias e ficção <- redação e textos: 42
+    programação e planilhas <- redação e textos: 33
+    escola e exercícios <- redação e textos: 32
+
+Textos iguais (primeiros 200 caracteres) em 5+ usuários: 2 textos, 30 usuários
+  texto repetido  1:  20 usuários | tema instruções de persona
+  texto repetido  2:  10 usuários | tema imagem e vídeo
+
+Validação v2: sorteio entre 2382 usuários fora da 1ª amostra (100 excluídos)
