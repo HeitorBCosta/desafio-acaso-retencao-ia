@@ -1,29 +1,24 @@
 """
-Recusa separada por motivo: o efeito da recusa no retorno é do produto ou de quem pede?
+Separa a recusa pelo motivo, para saber se o efeito vem do produto ou de quem pede.
 
-Pergunta: no script 07, ter o pedido não atendido (BDR-005, definição B) reduz o
-retorno em 11,7 pp. Isso pode ser seleção: quem pede algo proibido (keygen,
-instrução perigosa) talvez voltasse menos de qualquer jeito.
+No script 07, ter o pedido não atendido derruba o retorno em quase 12 pontos. Uma
+explicação possível é que quem pede algo proibido (um keygen, uma instrução perigosa)
+voltaria menos de qualquer jeito. Para testar, as recusas foram divididas em dois
+grupos: limitação do produto (a pessoa pediu algo legítimo que o assistente não
+consegue fazer, ou não tinha a informação) e política de conteúdo (o assistente recusou
+por regra de uso).
 
-Teste, com a leitura FIXADA ANTES de rodar [PREMISSA]:
-    - "limitação do produto" = motivo capacidade ou conhecimento (data de corte, previsão):
-      o usuário pediu algo legítimo e o produto não entregou
-    - "política de conteúdo" = o produto recusou por regra de uso
-    - se a limitação do produto também reduz o retorno (IC ajustado abaixo de zero),
-      a leitura "o produto contribui" fica mais forte
-    - se só a política reduz, seleção é a explicação mais simples
-    - se os ICs forem largos demais para separar os dois, o resultado é inconclusivo
-      e é reportado assim
-Motivo "desconhecido" (poucos casos) aparece só no bruto e sai do modelo.
+A leitura foi combinada antes de rodar. Se a limitação do produto também reduzir o
+retorno, o produto tem parte nisso. Se só a política reduzir, a explicação mais simples
+é o perfil de quem pede. Se os intervalos forem largos demais para separar os dois, o
+resultado é inconclusivo. Os poucos casos de motivo desconhecido aparecem só na conta
+simples. O modelo é o mesmo do script 07, reaproveitado de lá.
 
-O modelo é o mesmo do script 07 (mesmos fatores e controle), com a recusa
-trocada pelo motivo. Funções e carga vêm do próprio script 07, para não divergir.
-
-Uso:
+Como rodar:
     python scripts/07b_recusa_motivo.py
 
-Entradas: as do script 07
-Saídas:   relatorios/07b_recusa_motivo.txt, data/gold/efeitos_recusa_motivo.csv
+Lê:   o mesmo que o script 07
+Gera: relatorios/07b_recusa_motivo.txt, data/gold/efeitos_recusa_motivo.csv
 """
 import importlib.util
 import sys

@@ -1,17 +1,21 @@
 """
-Mede quanto a taxa de retorno em 7 dias muda conforme as definições de
-usuário, sessão e filtro de IP. Não interpreta: só mede.
+Testa definições de usuário e de sessão antes de escolher uma.
 
-Uso:
+A base não tem identificador de usuário, então comparamos três jeitos de juntar as
+conversas de uma mesma pessoa: só pelo IP, pelo IP com o user-agent completo e pelo IP
+com sistema operacional e navegador. Cada um é cruzado com dois intervalos de sessão
+(30 minutos e 2 horas) e com um corte opcional que tira IPs com muitos user-agents
+diferentes (5, 10 ou 20 ou mais). Para cada combinação, o relatório mostra quantos
+usuários aparecem e a taxa de retorno em 7 dias.
+
+A ideia aqui é só medir o quanto o resultado depende da definição. A escolha final
+está na BDR-001.
+
+Como rodar:
     python scripts/02_definicoes_usuario.py
 
-Entrada: data/bronze/wildchat_brazil.parquet (gerado pelo script 01)
-Saída:   relatorios/02_definicoes_usuario.txt
-
-Convenção dos rótulos no relatório:
-    [MEDIDO]   número que sai direto de uma consulta sobre a base
-    [PREMISSA] escolha nossa; o relatório mostra o resultado com alternativas
-    [DERIVADO] campo construído por regra explícita (a regra está no código)
+Lê:   data/bronze/wildchat_brazil.parquet
+Gera: relatorios/02_definicoes_usuario.txt
 """
 import math
 import sys
@@ -24,20 +28,20 @@ sys.stdout.reconfigure(encoding="utf-8")
 BRAZIL = Path("data/bronze/wildchat_brazil.parquet")
 SAIDA = Path("relatorios/02_definicoes_usuario.txt")
 
-# [PREMISSA] Não existe ID de usuário na base. Candidatos testados:
+# Premissa: Não existe ID de usuário na base. Candidatos testados:
 DEFINICOES_USUARIO = {
     "ip": "hashed_ip",
     "ip+ua_completo": "hashed_ip || '|' || ua",
     "ip+so+navegador": "hashed_ip || '|' || so || '|' || navegador",
 }
-# [PREMISSA] Intervalo sem uso que separa duas sessões do mesmo usuário.
+# Premissa: Intervalo sem uso que separa duas sessões do mesmo usuário.
 GAPS_SESSAO = {"30min": "INTERVAL 30 MINUTE", "2h": "INTERVAL 2 HOUR"}
-# [PREMISSA] Corte opcional: excluir conversas de IPs com N ou mais user-agents
+# Premissa: Corte opcional: excluir conversas de IPs com N ou mais user-agents
 # distintos. None = sem corte. Vários valores para medir a sensibilidade ao corte.
 CORTES_UA_POR_IP = [None, 20, 10, 5]
-# [PREMISSA] Retorno = início de uma 2ª sessão em até 7 dias após o início da 1ª.
+# Premissa: Retorno = início de uma 2ª sessão em até 7 dias após o início da 1ª.
 JANELA_RETORNO = "INTERVAL 7 DAY"
-# [PREMISSA] Datas em UTC. Fuso de análise ainda a decidir.
+# Premissa: Datas em UTC. Fuso de análise ainda a decidir.
 FUSO = "UTC"
 
 
@@ -78,7 +82,7 @@ def main() -> None:
              " ao fim dos dados (senão a janela de 7 dias não foi observada inteira)")
     escrever("  IC: Wilson 95%, supondo usuários independentes")
 
-    # Uma linha por conversa. [PREMISSA] O único horário disponível é a coluna
+    # Uma linha por conversa. Premissa: o único horário disponível é a coluna
     # timestamp (horário do último turno, segundo o enunciado): os timestamps por
     # turno vêm nulos (ver bloco de qualidade). A conversa é datada por ele.
     con.execute(f"""

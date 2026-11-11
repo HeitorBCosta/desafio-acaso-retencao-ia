@@ -1,4 +1,4 @@
-# Três achados para o cliente (rascunho de 11/11/2026, aprovado pelo Heitor)
+# Três achados para o cliente
 
 Fontes: relatorios/07_efeitos.txt, relatorios/07b_recusa_motivo.txt, relatorios/09_gpt4_selecao.txt.
 Rótulos: [MEDIDO] saiu de script; [DERIVADO] conta feita sobre números medidos; [PREMISSA] escolha declarada.

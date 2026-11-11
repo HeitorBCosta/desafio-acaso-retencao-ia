@@ -1,26 +1,21 @@
 """
-Gera listas para leitura manual, a partir das primeiras conversas do script 04:
+Separa amostras de conversas para conferir as regras do script 04 lendo os textos.
 
-    1. textos mais frequentes entre as respostas curtas (< 50 caracteres)
-    2. textos mais frequentes entre as perguntas curtas (< 20 caracteres)
-    3. amostra das conversas com idioma "Outros"
-    4. todas as conversas marcadas como recusa
-    5. amostra dirigida: não marcadas como recusa, mas com palavras-chave de recusa
-    6. conferência dos campos de mensagem sem pedido (BDR-004): textos marcados como
-       saudação/teste e textos curtos que nenhuma regra marcou
-    7. primeira mensagem vazia: idioma, turnos e o que a IA respondeu
-    8. respostas que começam com vírgula
+São oito listas: as respostas curtas mais frequentes, as perguntas curtas mais
+frequentes, conversas com idioma fora de português e inglês, todas as respostas
+marcadas como recusa, respostas não marcadas que têm palavras típicas de recusa,
+mensagens marcadas como cumprimento ou teste, primeiras mensagens vazias e respostas
+que começam com vírgula.
 
-Rode o script 04 antes: este script lê os campos que ele grava no silver.
+Os CSVs têm texto de conversa e ficam em data/amostras, fora do Git. O relatório só
+traz contagens. Os CSVs usam ponto e vírgula e UTF-8 com BOM, para abrir direto no
+Excel. Rode o script 04 antes.
 
-Uso:
+Como rodar:
     python scripts/05_amostras_leitura.py
 
-Entradas: data/silver/primeira_conversa.parquet, data/bronze/wildchat_brazil.parquet
-Saídas:   data/amostras/05_*.csv (têm texto; não versionar)
-          relatorios/05_amostras_leitura.txt (só contagens, sem texto)
-
-CSVs com separador ';' e codificação UTF-8 com BOM, para abrir direto no Excel.
+Lê:   data/silver/primeira_conversa.parquet, data/bronze/wildchat_brazil.parquet
+Gera: data/amostras/05_*.csv, relatorios/05_amostras_leitura.txt
 """
 import csv
 import sys

@@ -1,14 +1,21 @@
 """
-Baixa o WildChat-1M (Hugging Face, allenai/WildChat-1M) e extrai o recorte Brasil.
+Baixa a base WildChat-1M do Hugging Face e separa as conversas do Brasil.
 
-Uso:
-    pip install huggingface_hub duckdb
+A base original fica guardada sem alteração em data/raw. O recorte do Brasil, com todas
+as colunas, vai para data/bronze, e é de lá que os outros scripts partem. No fim, o
+script grava um primeiro perfil do recorte (volume, período, modelos, idiomas e
+concentração de conversas por IP). Os IPs com mais conversas aparecem só pela posição,
+nunca pelo hash.
+
+Como rodar, a partir da raiz do projeto:
     python scripts/01_baixar_wildchat.py
 
-Saídas:
-    data/raw/wildchat-1m/...            parquets originais (~3,4 GB), base bruta intocada
-    data/bronze/wildchat_brazil.parquet recorte country = 'Brazil', todas as colunas
-    relatorios/perfil_brasil.txt        primeiro perfil do recorte (UTF-8)
+Se os arquivos já estiverem em data/raw, o download é pulado.
+
+Lê:   allenai/WildChat-1M no Hugging Face
+Gera: data/raw/wildchat-1m/ (cerca de 3,4 GB)
+      data/bronze/wildchat_brazil.parquet
+      relatorios/perfil_brasil.txt
 """
 import sys
 from pathlib import Path

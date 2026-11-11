@@ -1,46 +1,30 @@
 """
-GPT-4: quem escolhe é diferente? E, comparando grupos semelhantes, o modelo muda o retorno?
+Verifica se quem escolhe o GPT-4 é diferente e se, comparando pessoas parecidas, o
+modelo muda a chance de voltar.
 
-O enunciado cita esse fator de confusão ("quem escolhe o GPT-4 já ser mais engajado").
-O script 07 deu GPT-4 -1,3 pp [-6,1; +3,5], mas aquele modelo controla variáveis que
-acontecem DEPOIS da escolha do modelo (turnos, tamanho da resposta, recusa, código):
-isso mede um efeito "a turnos iguais", não o efeito total de escolher o GPT-4.
+O enunciado cita esse caso como exemplo de confusão: quem escolhe o GPT-4 pode já ser
+mais engajado. O script 07 não responde isso direito, porque controla coisas que
+acontecem depois da escolha do modelo, como o número de turnos e o tamanho da resposta.
 
-Aqui:
-    1. Balanço: diferença padronizada (SMD) entre quem usou GPT-4 e GPT-3.5 em cada
-       característica. |SMD| < 0,10 é a regra usual de balanço aceitável (Austin, 2009,
-       Statistics in Medicine 28:3083-3107).
-         - antes da escolha (entram no peso): período do dia, fim de semana, trimestre,
-           1ª mensagem, idioma, sistema operacional, navegador
-         - depois da escolha (só descritivo, NÃO entram no peso, porque podem ser
-           consequência do modelo): turnos, tamanho da resposta, recusa, código
-    2. Ponderação pelo inverso da probabilidade de escolha (IPTW, pesos estabilizados;
-       Austin e Stuart, 2015, Statistics in Medicine 34:3661-3679): cada grupo é
-       re-pesado para ficar parecido com a base inteira nas características de antes.
-    3. Efeito total do GPT-4 = taxa ponderada GPT-4 - taxa ponderada GPT-3.5, com IC 95%
-       por bootstrap (o modelo de probabilidade é reestimado em cada reamostragem).
-    4. Por trimestre: participação do GPT-4 e retorno de cada modelo.
+Aqui, a comparação usa só o que já era conhecido antes da escolha: horário, fim de
+semana, trimestre, tipo da primeira mensagem, idioma, sistema e navegador. Primeiro, o
+script mostra o quanto os dois grupos diferem em cada característica (diferença
+padronizada; abaixo de 0,10 é considerado equilibrado, como em Austin, 2009). Depois,
+re-pesa os grupos pela probabilidade de cada pessoa escolher o GPT-4 (Austin e Stuart,
+2015), confere de novo o equilíbrio e calcula o efeito com intervalo por bootstrap de
+1.000 reamostragens.
 
-v2 (11/11): a v1 violou a sobreposição. Em 2023-T3 nenhum usuário começou no GPT-4,
-e em 2024 quase ninguém começou no GPT-3.5 (43 e 10). Com isso, a probabilidade de
-escolha foi de 0,000 a 0,989, o maior peso chegou a 23,7 e o trimestre continuou
-desequilibrado depois do peso (SMD de -0,67 em 2023-T3). Comparar GPT-4 e GPT-3.5 só
-faz sentido onde os dois estavam em uso. Regra [PREMISSA]: o efeito é estimado só nos
-trimestres em que cada modelo tem pelo menos 100 usuários. Os outros trimestres
-aparecem na tabela por trimestre, mas não entram no peso nem no efeito.
+A comparação só vale onde os dois modelos estavam em uso ao mesmo tempo. Num trimestre
+ninguém começou no GPT-4, e em 2024 quase ninguém começou no GPT-3.5. Por isso o
+efeito é calculado só nos trimestres com pelo menos 100 usuários em cada modelo; os
+outros aparecem na tabela por trimestre. Mesmo com o equilíbrio, o que não foi medido,
+como a intenção de uso, continua podendo diferir entre os grupos.
 
-Leitura fixada antes de rodar [PREMISSA]:
-    - IC do efeito ponderado inclui zero -> sem evidência de efeito do modelo no retorno,
-      mesmo comparando grupos parecidos no que é observável
-    - balanço depois do peso com algum |SMD| >= 0,10 -> o peso não resolveu; reportar
-    - não prova ausência de efeito: o que não foi medido (ex.: intenção de uso) continua
-      podendo diferir entre os grupos
-
-Uso:
+Como rodar:
     python scripts/09_gpt4_selecao.py
 
-Entradas: as do script 07 (a carga vem do próprio 07)
-Saídas:   relatorios/09_gpt4_selecao.txt, data/gold/efeito_gpt4_iptw.csv
+Lê:   o mesmo que o script 07
+Gera: relatorios/09_gpt4_selecao.txt, data/gold/efeito_gpt4_iptw.csv
 """
 import importlib.util
 import sys

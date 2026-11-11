@@ -1,17 +1,19 @@
 """
-1) Verifica quais itens da lista `conversation` têm horário (por role) e se a
-   coluna `timestamp` coincide com o horário do último item.
-2) Mede o retorno em 7 dias para várias regras de sessão, com duas âncoras de
-   horário: só a coluna `timestamp` (último turno) e início/fim por conversa,
-   quando os horários por item permitirem.
+Confere os horários das conversas e mede o retorno com várias regras de sessão.
 
-Uso:
+Primeiro, verifica quais mensagens trazem horário (só as respostas do assistente
+trazem) e se a coluna timestamp coincide com o horário da última resposta. Depois,
+calcula o retorno em 7 dias com intervalos de sessão de 30 minutos a 24 horas, usando
+dois pontos de referência: só o horário final da conversa, ou o início e o fim de cada
+conversa quando os horários das mensagens permitem.
+
+Foi esse resultado que levou à regra de sessão da BDR-003.
+
+Como rodar:
     python scripts/03_horarios_e_sessao.py
 
-Entrada: data/bronze/wildchat_brazil.parquet
-Saída:   relatorios/03_horarios_e_sessao.txt
-
-Rótulos: [MEDIDO] consulta direta; [PREMISSA] escolha nossa; [DERIVADO] regra explícita.
+Lê:   data/bronze/wildchat_brazil.parquet
+Gera: relatorios/03_horarios_e_sessao.txt
 """
 import math
 import sys
@@ -23,15 +25,15 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 BRAZIL = Path("data/bronze/wildchat_brazil.parquet")
 SAIDA = Path("relatorios/03_horarios_e_sessao.txt")
-FUSO = "UTC"  # [PREMISSA]
+FUSO = "UTC"  # premissa
 
-# [PREMISSA] Definições de usuário (as mesmas do script 02).
+# Premissa: Definições de usuário (as mesmas do script 02).
 DEFINICOES_USUARIO = {
     "ip": "hashed_ip",
     "ip+ua_completo": "hashed_ip || '|' || ua",
     "ip+so+navegador": "hashed_ip || '|' || so || '|' || navegador",
 }
-# [PREMISSA] Regras de sessão testadas: intervalo mínimo sem uso entre sessões.
+# Premissa: Regras de sessão testadas: intervalo mínimo sem uso entre sessões.
 GAPS_SESSAO = {
     "30min": "INTERVAL 30 MINUTE",
     "1h": "INTERVAL 1 HOUR",
@@ -40,7 +42,7 @@ GAPS_SESSAO = {
     "12h": "INTERVAL 12 HOUR",
     "24h": "INTERVAL 24 HOUR",
 }
-JANELA = "INTERVAL 7 DAY"  # [PREMISSA] janela de retorno
+JANELA = "INTERVAL 7 DAY"  # Premissa: janela de retorno
 
 
 def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:

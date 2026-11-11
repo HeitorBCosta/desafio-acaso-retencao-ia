@@ -1,13 +1,15 @@
 """
-Sorteia 100 primeiras conversas com idioma 'Portuguese' e 100 com 'English' na base,
-para conferir por leitura se o rótulo de idioma da base é confiável nesses dois grupos
-(no grupo 'Outros' ele coincidiu com a leitura em só 9 de 100).
+Sorteia 100 primeiras conversas marcadas como português e 100 marcadas como inglês,
+para conferir lendo se o rótulo de idioma da base é confiável nesses dois grupos.
 
-Uso:
+A conferência veio da leitura das conversas marcadas com outros idiomas: nesse grupo,
+o rótulo da base bateu com a leitura em só 9 de 100.
+
+Como rodar:
     python scripts/05b_amostra_idioma_pt_en.py
 
-Entradas: data/silver/primeira_conversa.parquet, data/bronze/wildchat_brazil.parquet
-Saída:    data/amostras/05b_idioma_pt_en.csv (tem texto; não versionar)
+Lê:   data/silver/primeira_conversa.parquet, data/bronze/wildchat_brazil.parquet
+Gera: data/amostras/05b_idioma_pt_en.csv (tem texto, fica fora do Git)
 """
 import csv
 import sys

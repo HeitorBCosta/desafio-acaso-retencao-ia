@@ -1,34 +1,30 @@
 """
-Uma semana em que o retorno caiu ou subiu: mudou o perfil de quem chegou ou mudou a
-taxa de retorno dentro de cada perfil? (enunciado, seção 3.2)
+Procura uma semana em que o retorno caiu ou subiu e separa o que mudou: o perfil de
+quem chegou ou a taxa de retorno dentro de cada perfil.
 
-1. Série semanal: usuários elegíveis que chegaram em cada semana (segunda a domingo,
-   horário de Brasília) e quantos voltaram em 7 dias (BDR-003), com IC de Wilson.
-2. Escolha da semana, com regra fixada antes de rodar [PREMISSA]:
-     - só semanas com pelo menos 40 elegíveis (abaixo disso o IC passa de +-13 pp)
-     - comparação: a semana contra as 4 semanas anteriores (com usuários) somadas
-     - escolhida: a maior diferença absoluta entre as semanas cujo IC (Newcombe) não
-       inclui zero; se nenhuma excluir zero, a maior diferença, avisando que está
-       dentro do ruído
-     - com dezenas de semanas testadas, cerca de 5% delas sairiam do IC por acaso;
-       o relatório mostra quantas saíram, para comparar
-3. Decomposição de Kitagawa (1955, JASA 50:1168-1194): a diferença de taxa entre a
-   semana e as 4 anteriores é a soma de
-     - perfil (composição): mudou a proporção de cada tipo de usuário
-     - taxa: mudou o retorno dentro de cada tipo
-   feita uma vez para cada característica de chegada: modelo, 1ª mensagem (com ou
-   sem pedido), idioma, sistema (celular ou computador), período do dia.
-   IC 95% de cada parte por bootstrap (reamostra usuários dentro de cada período).
+O script monta a série semanal (de segunda a domingo, no horário de Brasília) com o
+intervalo de cada semana. A semana analisada é escolhida por uma regra definida antes:
+entre as semanas com pelo menos 40 usuários, a de maior diferença contra as 4 semanas
+anteriores, desde que o intervalo dessa diferença não inclua zero. Como dezenas de
+semanas são testadas, umas 5% devem passar por acaso, e o relatório mostra quantas
+passaram para comparar.
 
-Uso:
+A diferença é dividida em duas partes pela decomposição de Kitagawa (1955): quanto
+viria só da mudança no perfil de quem chegou e quanto viria da mudança na taxa dentro
+de cada perfil. Isso é feito para cada característica de chegada (modelo, com ou sem
+pedido, idioma, celular ou computador, horário), com intervalo por bootstrap.
+
+Também dá para decompor um período escolhido à mão contra o resto da base. Como esse
+período é escolhido depois de olhar a série, o resultado serve para levantar hipótese,
+não para confirmar, e o relatório deixa isso marcado.
+
+Como rodar:
     python scripts/10_semana_atipica.py
     python scripts/10_semana_atipica.py --inicio 2023-07-17 --fim 2023-08-07
-        [EXPLORATÓRIO] decompõe um período escolhido (semanas de início a fim, inclusive)
-        contra todas as outras semanas. Período escolhido DEPOIS de ver a série: o
-        resultado é exploratório e é marcado assim no relatório.
 
-Entradas: as do script 07 (a carga vem do próprio 07)
-Saídas:   relatorios/10_semana_atipica.txt, data/gold/serie_semanal.csv
+Lê:   o mesmo que o script 07
+Gera: relatorios/10_semana_atipica.txt, data/gold/serie_semanal.csv
+      e, com --inicio e --fim, relatorios/10_periodo_exploratorio.txt
 """
 import argparse
 import importlib.util

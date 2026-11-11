@@ -1,21 +1,23 @@
 """
-Deriva, por regra (sem IA), os campos da primeira conversa de cada usuário.
+Monta os campos da primeira conversa de cada usuário, todos calculados por regra.
 
-Decisões aplicadas:
-    BDR-001  usuário = hashed_ip + SO + navegador
-    BDR-002  primeira experiência = primeira conversa do usuário
+Usuário é o IP com sistema operacional e navegador (BDR-001), e a primeira experiência
+é a primeira conversa dele (BDR-002). Para essa conversa o script calcula modelo,
+número de turnos, horário e dia da semana em Brasília, idioma, tamanho da pergunta e
+da resposta, presença de código, sinais de recusa e o tipo da primeira mensagem
+(vazia, só cumprimento, só teste ou pedido). Os rótulos lidos à mão para mensagens
+vazias, em docs/rotulos, substituem a regra quando existem.
 
-Uso:
+O resultado tem uma linha por usuário e nenhum texto de conversa. As amostras com
+texto, usadas para conferir as regras, vão para data/amostras, que fica fora do Git.
+
+Como rodar:
     python scripts/04_campos_primeira_conversa.py
 
-Entrada: data/bronze/wildchat_brazil.parquet
-Saídas:
-    data/silver/primeira_conversa.parquet   uma linha por usuário, SEM texto
-    relatorios/04_campos_primeira_conversa.txt
-    data/amostras/*.csv                      amostras para conferência manual
-                                             (têm texto das conversas; não versionar)
-
-Rótulos: [MEDIDO] consulta direta; [PREMISSA] escolha nossa; [DERIVADO] regra explícita.
+Lê:   data/bronze/wildchat_brazil.parquet, docs/rotulos/pergunta_vazia_tipo.csv
+Gera: data/silver/primeira_conversa.parquet
+      relatorios/04_campos_primeira_conversa.txt
+      data/amostras/*.csv
 """
 import sys
 from pathlib import Path
@@ -32,13 +34,13 @@ AMOSTRAS = Path("data/amostras")
 # Só ids e rótulos, sem texto de conversa; versionado no repositório.
 ROTULOS_VAZIA = Path("docs/rotulos/pergunta_vazia_tipo.csv")
 
-FUSO_LOCAL = "America/Sao_Paulo"  # [PREMISSA] fuso do campo horário
+FUSO_LOCAL = "America/Sao_Paulo"  # Premissa: fuso do campo horário
 SEMENTE = 0.42                    # amostras reproduzíveis
 N_AMOSTRA = 100                   # por grupo (marcados / não marcados)
 
-# [DERIVADO] Padrões de recusa, v1. Aplicados à 1ª resposta do assistente,
-# em minúsculas. "As an AI language model" sozinho NÃO conta: só com negação.
-# [DERIVADO] Primeira mensagem do usuário sem pedido (BDR-004). Aplicadas ao texto
+# Padrões de recusa (versão 1). Aplicados à 1ª resposta do assistente,
+# em minúsculas. "As an AI language model" sozinho não conta, só junto com uma negação.
+# Primeira mensagem do usuário sem pedido (BDR-004). Aplicadas ao texto
 # normalizado: minúsculas, sem pontuação, espaços colapsados, sem espaços nas pontas.
 # Listas tiradas dos textos mais frequentes (relatorios/05, data/amostras/05_*).
 REGEX_SAUDACAO = (
@@ -48,7 +50,7 @@ REGEX_SAUDACAO = (
 )
 REGEX_TESTE = r"^test(e|es|ando|ing)?( [0-9]+)?$"
 
-# [DERIVADO] Tipo da primeira mensagem vazia, pela resposta do assistente (BDR-004, atualização):
+# Tipo da primeira mensagem vazia, pela resposta do assistente (BDR-004, atualização):
 #   confirmada    = a resposta diz que a mensagem veio vazia ou incompleta
 #   indeterminada = a resposta é só um cumprimento curto (< 150 caracteres)
 #   texto_ausente = qualquer outra resposta (ex.: explica um tema): o texto do usuário

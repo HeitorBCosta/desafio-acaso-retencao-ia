@@ -1,25 +1,9 @@
 """
-Efeito de cada fator da primeira conversa no retorno em 7 dias (BDR-003, sessão de 30 min).
+Primeira versão do script 07, guardada como histórico. Use o 07_efeitos.py.
 
-Para cada nível de cada fator, comparado com um nível de referência:
-    bruto     diferença simples de taxas, em pontos percentuais (IC 95% de Newcombe)
-    ajustado  efeito marginal médio de uma regressão logística com todos os fatores
-              e o trimestre de chegada como controle (IC 95% pelo método delta)
-Ordenado pelo tamanho do efeito ajustado.
-
-Sensibilidade: o mesmo modelo ajustado para outras regras de retorno (1 h, 24 h,
-outro dia em America/Sao_Paulo), para ver se a direção do efeito se mantém.
-
-Fatores incluídos (já conferidos): modelo, turnos, período do dia, fim de semana,
-tamanho da pergunta, tamanho da resposta, tipo da primeira mensagem.
-Ficam de fora até a conferência fechar: recusa (BDR-005), idioma, código, tema.
-
-Uso:
-    pip install pandas statsmodels
-    python scripts/07_efeitos.py
-
-Entrada: data/gold/base_analise.parquet (script 06)
-Saídas:  relatorios/07_efeitos.txt, data/gold/efeitos.csv
+Media os mesmos efeitos, mas sem recusa, idioma e código, que ainda estavam em
+conferência, e com o tipo da primeira mensagem e o tamanho da pergunta como fatores
+separados. O resultado está em relatorios/07_efeitos_v1.txt.
 """
 import math
 import sys

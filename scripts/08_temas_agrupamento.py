@@ -1,37 +1,30 @@
 """
-Tema da primeira conversa por agrupamento local.
+Tenta descobrir o tema da primeira conversa agrupando os textos, sem modelo de linguagem.
 
-Método (o mesmo do exemplo de agrupamento de textos da documentação do scikit-learn):
-    1. texto = todas as mensagens do USUÁRIO na 1ª conversa, juntas
-       (a 1ª mensagem sozinha perde o pedido de quem começou com "oi")
-    2. TF-IDF de palavras e pares de palavras, sem acentos, sem números,
-       sem palavras vazias em português e inglês
-    3. redução para 100 dimensões (LSA: TruncatedSVD) e normalização
-    4. k-means
+O texto de cada usuário é a junção das mensagens dele na primeira conversa, porque
+quem começa com "oi" só faz o pedido depois. Os textos viram vetores TF-IDF (palavras e
+pares de palavras, sem acento, sem números e sem palavras vazias em português e
+inglês), são reduzidos a 100 dimensões e agrupados com k-means, seguindo o exemplo de
+agrupamento de textos da documentação do scikit-learn.
 
-Escolha do número de grupos (k), feita SEM olhar o retorno, para não ajustar os
-grupos ao resultado:
-    - para cada k da lista, o k-means roda com 5 sementes diferentes
-    - estabilidade = concordância média entre as 5 rodadas (ARI; 1 = idênticas)
-    - regra fixada antes de ver os grupos [PREMISSA]: o MAIOR k com estabilidade
-      >= 0,80 e todos os grupos com >= 30 usuários; se nenhum passar, o k mais estável
-    - silhueta (cosseno) só como informação
+O número de grupos foi escolhido sem olhar o retorno, para os grupos não se ajustarem
+ao resultado. Cada número de grupos roda com 5 sementes, e a regra combinada antes era
+ficar com o maior número que desse grupos estáveis (concordância de pelo menos 0,80
+entre as rodadas) e com pelo menos 30 usuários cada.
 
-Depois disso o nome de cada grupo vem da leitura dos termos e de uma amostra de
-textos (passo 2). Grupos com o mesmo assunto em línguas diferentes (ex.: "redação"
-e "essay") são juntados nesse mapa, que fica versionado em docs/rotulos.
+Não funcionou. Na primeira tentativa, só o menor número de grupos (6) ficou estável, e
+os grupos se formavam por idioma e por cumprimento, não por assunto. Na segunda, sem as
+palavras de cumprimento e as que falam do próprio assistente, e exigindo que nenhum
+grupo passasse de 40% dos usuários, nenhum número de grupos passou. O tema passou a
+ser classificado por dicionário, no script 08b.
 
-Uso:
-    pip install scikit-learn
-    python scripts/08_temas_agrupamento.py            # passo 1: compara os k
-    python scripts/08_temas_agrupamento.py --k 12     # passo 2: grava grupos e amostra
+Como rodar:
+    python scripts/08_temas_agrupamento.py           (compara os números de grupos)
+    python scripts/08_temas_agrupamento.py --k 12    (grava os grupos de um número escolhido)
 
-Entradas: data/gold/base_analise.parquet (script 06), data/bronze/wildchat_brazil.parquet
-Saídas, passo 1: relatorios/08_temas_escolha_k.txt (contagens e termos, sem texto)
-Saídas, passo 2: data/silver/tema_grupo.parquet          usuario, grupo (sem texto)
-                 data/amostras/08_temas_k{k}.csv         amostra com texto; não versionar
-                 docs/rotulos/tema_mapa_k{k}.csv         grupo -> tema, a preencher
-                 relatorios/08_temas_k{k}.txt            tamanho e termos de cada grupo
+Lê:   data/gold/base_analise.parquet, data/bronze/wildchat_brazil.parquet
+Gera: relatorios/08_temas_escolha_k.txt e, com --k, os grupos, uma amostra para leitura
+      e um mapa grupo-tema para preencher
 """
 import argparse
 import csv
@@ -60,11 +53,11 @@ ROTULOS = Path("docs/rotulos")
 RELATORIOS = Path("relatorios")
 
 ELEGIVEL = "elegivel_30min"   # mesma base do script 07 (BDR-003)
-MAX_CHARS = 2000              # [PREMISSA] só o começo do texto: código ou texto colado não domina
+MAX_CHARS = 2000              # Premissa: só o começo do texto: código ou texto colado não domina
 K_LISTA = [6, 8, 10, 12, 15, 20]
 SEMENTES = [0, 1, 2, 3, 4]
-ESTAB_MIN = 0.80              # [PREMISSA]
-MAIOR_GRUPO_MAX = 0.40        # [PREMISSA] acima disso o maior grupo é um "resto", não um tema
+ESTAB_MIN = 0.80              # premissa
+MAIOR_GRUPO_MAX = 0.40        # Premissa: acima disso o maior grupo é um "resto", não um tema
 GRUPO_MIN = 30                # mesmo mínimo do script 07
 N_COMPONENTES = 100
 N_TERMOS = 12

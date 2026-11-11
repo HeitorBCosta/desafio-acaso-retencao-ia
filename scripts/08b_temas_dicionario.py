@@ -1,42 +1,29 @@
 """
-Tema da primeira conversa por dicionário de palavras-chave (plano B).
+Classifica o tema da primeira conversa com listas de palavras-chave.
 
-Por que dicionário: o agrupamento (script 08) falhou nas duas versões
-    v1: só k=6 estável (ARI 0,842), mas grupos por idioma e cumprimento; maior grupo 44%
-    v2: nenhum k com estabilidade >= 0,80; maior grupo no k=6 com 45%; silhueta <= 0,121
-Os termos que o agrupamento mostrou (código, exercícios, imagem/vídeo, tradução,
-redação, perguntas sobre o assistente) serviram de ponto de partida para as listas.
+Foi o plano B depois que o agrupamento do script 08 não separou assuntos. Os termos
+que o agrupamento mostrou (código, exercícios, imagem e vídeo, tradução, redação,
+perguntas sobre o próprio assistente) serviram de ponto de partida para as listas.
 
-Regras:
-    - texto = todas as mensagens do usuário na 1ª conversa, juntas, primeiros 2.000
-      caracteres, minúsculo e sem acento (mesmo texto do script 08)
-    - cada tema é uma lista de expressões regulares; o usuário recebe o PRIMEIRO
-      tema da ordem abaixo que casar [PREMISSA: a ordem vai do mais específico ao
-      mais genérico]; o relatório mostra quantos casaram com mais de um tema, para
-      medir quanto a ordem decide
-    - "sem pedido": o texto só tem cumprimento, teste, palavras vazias ou nada
-    - nada casou: "outros"
-O retorno não é lido aqui: as listas são montadas sem ver o desfecho.
+O texto é o mesmo do script 08, cortado nos primeiros 2.000 caracteres, em minúsculas
+e sem acento. Cada tema é uma lista de expressões regulares, e o usuário recebe o
+primeiro tema da ordem que casar, do mais específico ao mais genérico. O relatório
+mostra quantos casaram com mais de um tema, para dar a medida do peso da ordem. Quem só
+mandou cumprimento, teste ou nada fica como "sem pedido", e quem não casou com nenhuma
+lista fica como "outros". O retorno não é usado em nenhum momento.
 
-Validação: 100 usuários sorteados vão para leitura manual (docs/rotulos/tema_validacao.csv);
-a taxa de acerto sai com IC de Wilson.
+A primeira versão acertou 54 de 98 numa amostra lida à mão (55%). As listas foram
+corrigidas a partir desses erros e testadas numa segunda amostra, só com usuários
+novos, onde acertaram 65 de 97 (67%). Como isso ficou abaixo dos 70% combinados antes,
+o tema entra só como descrição, fora do modelo de efeitos.
 
-Uso:
+Como rodar:
     python scripts/08b_temas_dicionario.py
 
-Entradas: data/gold/base_analise.parquet, data/bronze/wildchat_brazil.parquet
-Saídas:   data/silver/tema.parquet                 usuario, tema, temas_casados (sem texto)
-          relatorios/08b_temas_dicionario.txt      contagens, sem texto
-          data/amostras/08b_validacao_v2.csv       100 sorteados FORA da 1ª amostra, com texto; não versionar
-          data/amostras/08b_textos_repetidos.csv   textos iguais em vários usuários; não versionar
-          docs/rotulos/tema_validacao_v2.csv       gabarito a preencher (só ids)
-
-Histórico:
-    v1: 54 de 98 corretos (55,1%; IC 95% 45,2-64,6) na 1ª amostra (docs/rotulos/tema_validacao.csv).
-        Erros mais comuns: perguntas sem palavra da lista caindo em "outros" (9); "foto",
-        "vídeo", "tiktok" como assunto puxando para imagem e vídeo (8); "prova", "escola"
-        como assunto puxando para escola; padrão de "c++" quebrado.
-    v2: listas corrigidas a partir desses erros; testada numa 2ª amostra, de usuários novos.
+Lê:   data/gold/base_analise.parquet, data/bronze/wildchat_brazil.parquet
+Gera: data/silver/tema.parquet (sem texto), relatorios/08b_temas_dicionario.txt,
+      amostras com texto em data/amostras (fora do Git)
+      e o gabarito para preencher em docs/rotulos/tema_validacao_v2.csv
 """
 import csv
 import re

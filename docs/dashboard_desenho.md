@@ -1,4 +1,4 @@
-# Desenho do dashboard (rascunho de 11/11/2026)
+# Desenho do dashboard
 
 Stack escolhida: FastAPI (Python) + React com Vite e Recharts; base analítica em PostgreSQL (ADR-001).
 Público: pessoas de negócio, sem perfil técnico. Cada número tem definição e fonte; cada efeito tem intervalo.

@@ -1,29 +1,25 @@
 """
-Efeito de cada fator da primeira conversa no retorno em 7 dias (BDR-003, sessão de 30 min).
+Mede o efeito de cada fator da primeira conversa na chance de voltar em 7 dias.
 
-Para cada nível de cada fator, comparado com um nível de referência:
-    bruto     diferença simples de taxas, em pontos percentuais (IC 95% de Newcombe)
-    ajustado  efeito marginal médio de uma regressão logística com todos os fatores
-              e o trimestre de chegada como controle (IC 95% pelo método delta)
-Ordenado pelo tamanho do efeito ajustado.
+Cada nível de um fator é comparado com um nível de referência de duas formas. A
+diferença simples compara as taxas de retorno dos dois grupos, com intervalo de
+Newcombe. A diferença ajustada vem de uma regressão logística com todos os fatores
+juntos e o trimestre de chegada como controle, e é o efeito marginal médio, com
+intervalo pelo método delta. A tabela sai ordenada pelo tamanho do efeito ajustado, e
+o modelo é refeito com outras regras de retorno (1 hora, 24 horas, outro dia) para ver
+se a direção se mantém.
 
-Sensibilidade: o mesmo modelo ajustado para outras regras de retorno (1 h, 24 h,
-outro dia em America/Sao_Paulo), para ver se a direção do efeito se mantém.
+Nesta versão, o tipo da primeira mensagem e o tamanho da pergunta viraram um fator só,
+porque na versão anterior os dois mediam a mesma coisa. Também entraram recusa
+(BDR-005), idioma e código. A recusa principal junta "parcial" e "não atendido"; um
+segundo modelo separa os dois. O tema ficou de fora porque a classificação acertou só
+67%, abaixo do mínimo de 70% combinado antes (script 08b).
 
-v2 (11/11):
-    - "tipo da 1ª mensagem" e "tamanho da pergunta" viram um fator só (na v1 os dois
-      carregavam o mesmo sinal: saudação -11,2 pp bruto caía para -2,9 pp ajustado)
-    - entram recusa (BDR-005), idioma e código
-    - recusa: modelo principal com a definição (B) "pedido não atendido como pedido";
-      modelo alternativo com os três níveis (parcial e não atendido separados)
-Fora do modelo: tema (acerto da classificação 67%, abaixo do limite de 70%; script 08b).
-
-Uso:
-    pip install pandas statsmodels
+Como rodar:
     python scripts/07_efeitos.py
 
-Entradas: data/gold/base_analise.parquet (script 06), docs/rotulos/recusa_resultado.csv
-Saídas:  relatorios/07_efeitos.txt, data/gold/efeitos.csv
+Lê:   data/gold/base_analise.parquet, docs/rotulos/recusa_resultado.csv
+Gera: relatorios/07_efeitos.txt, data/gold/efeitos.csv
 """
 import math
 import sys

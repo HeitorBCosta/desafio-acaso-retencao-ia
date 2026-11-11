@@ -1,24 +1,18 @@
 """
-Calcula o desfecho de cada usuário: voltou em até 7 dias?
+Calcula, para cada usuário, se ele voltou em até 7 dias.
 
-Decisões aplicadas:
-    BDR-001  usuário = hashed_ip + SO + navegador
-    BDR-002  primeira experiência = primeira conversa do usuário
-    BDR-003  retorno = 2ª sessão iniciada até 7 dias após o início da 1ª conversa;
-             sessão encerra após 30 min sem uso (regra principal)
+Voltar quer dizer começar uma segunda sessão em até 7 dias depois do início da
+primeira conversa, e uma sessão termina depois de 30 minutos sem uso (BDR-003). Para a
+análise de sensibilidade, o mesmo cálculo é repetido com sessões de 1, 2, 6, 12 e 24
+horas e com a regra "voltou em outro dia do calendário", em UTC e no horário de
+Brasília. Só entra na conta quem chegou com pelo menos 7 dias de base pela frente.
 
-Regras alternativas, para análise de sensibilidade (mesmo cálculo, outro intervalo):
-    1 h, 2 h, 6 h, 12 h, 24 h, e "outro dia do calendário" (UTC e America/Sao_Paulo)
-
-Uso:
+Como rodar:
     python scripts/06_desfecho_retorno.py
 
-Entradas: data/bronze/wildchat_brazil.parquet, data/silver/primeira_conversa.parquet
-Saídas:
-    data/gold/base_analise.parquet      silver + desfechos, uma linha por usuário, SEM texto
-    relatorios/06_desfecho_retorno.txt
-
-Rótulos: [MEDIDO] consulta direta; [PREMISSA] escolha nossa; [DERIVADO] regra explícita.
+Lê:   data/bronze/wildchat_brazil.parquet, data/silver/primeira_conversa.parquet
+Gera: data/gold/base_analise.parquet (uma linha por usuário, sem texto)
+      relatorios/06_desfecho_retorno.txt
 """
 import math
 import sys
@@ -35,7 +29,7 @@ RELATORIO = Path("relatorios/06_desfecho_retorno.txt")
 
 JANELA = "INTERVAL 7 DAY"
 GAP_PRINCIPAL = "30min"
-GAPS = {  # [PREMISSA] BDR-003: 30 min é a regra principal; as demais são sensibilidade
+GAPS = {  # Premissa: BDR-003: 30 min é a regra principal; as demais são sensibilidade
     "30min": "INTERVAL 30 MINUTE",
     "1h": "INTERVAL 1 HOUR",
     "2h": "INTERVAL 2 HOUR",

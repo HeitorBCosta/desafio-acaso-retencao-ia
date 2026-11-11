@@ -1,26 +1,24 @@
 """
-Carrega a base analítica (PostgreSQL, ADR-001) a partir dos resultados da análise.
+Carrega a base analítica do dashboard no PostgreSQL a partir dos resultados da análise.
 
-Passos:
-    1. aplica as migrações de db/migracoes que ainda não foram aplicadas
-    2. numa transação só: esvazia e recarrega as tabelas de analytics
-         - usuario_primeira_experiencia  (carga do script 07 + tema do 08b, se existir)
-         - conversas_dia                 (base bronze, todos os usuários)
-         - efeitos                       (CSVs dos scripts 07, 07b e 09)
-    3. confere os totais contra a origem; se não baterem, desfaz tudo
-    4. registra a execução em analytics.carga_execucao
+Primeiro aplica as migrações de db/migracoes que ainda não rodaram. Depois, numa
+transação só, apaga e regrava as tabelas do schema analytics: uma linha por usuário com
+os fatores da primeira conversa e o desfecho, o volume de conversas por dia e os
+efeitos já calculados pelos scripts 07, 07b e 09. Antes de confirmar, compara os totais
+gravados com os da origem (usuários, elegíveis, retornos, conversas e efeitos). Se algum
+não bater, a transação é desfeita inteira. Cada carga fica registrada em
+analytics.carga_execucao.
 
-Recarga completa a cada execução: a base é pequena (~2.500 usuários) e assim a carga
-pode rodar quantas vezes for preciso com o mesmo resultado.
+A recarga é completa a cada execução. A base é pequena, e assim rodar de novo sempre
+dá o mesmo resultado. Nenhuma tabela recebe texto de conversa, IP ou user-agent; o
+usuário é gravado como o sha256 de "IP anonimizado|sistema|navegador".
 
-Nunca grava texto de conversa, IP, hash de IP ou user-agent. O usuário vira sha256
-de "hashed_ip|SO|navegador".
+Como rodar:
+    $env:DATABASE_URL = "postgresql://acaso:acaso@localhost:5432/acaso"
+    python scripts/11_carregar_postgres.py
 
-Uso:
-    DATABASE_URL=postgresql://acaso:acaso@localhost:5432/acaso python scripts/11_carregar_postgres.py
-
-Entradas: data/gold/base_analise.parquet (via script 07), data/silver/tema.parquet (opcional),
-          data/bronze/wildchat_brazil.parquet, data/gold/efeitos*.csv, data/gold/efeito_gpt4_iptw.csv
+Lê:   data/gold/, data/silver/tema.parquet, data/bronze/wildchat_brazil.parquet
+Grava: o schema analytics do banco indicado em DATABASE_URL
 """
 import hashlib
 import importlib.util

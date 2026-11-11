@@ -1,23 +1,18 @@
 """
-A queda de 17/07 a 13/08/2023 é de usuário que não voltou ou de conversa que não foi
-registrada?
+Conta as conversas de todos os usuários por dia e lista os dias sem nenhuma conversa.
 
-O retorno é medido pelas conversas que estão na base. Se a coleta parou alguns dias
-logo depois do período, quem voltou nesses dias aparece como "não voltou". Este script
-conta as conversas de TODOS os usuários do Brasil por dia (horário de Brasília) no
-intervalo inteiro da base e lista os dias sem nenhuma conversa.
+O retorno é medido pelas conversas que estão na base. Se a coleta parou por alguns
+dias, quem voltou nesses dias aparece como se não tivesse voltado. O script foi feito
+para checar se a queda de 17/07 a 13/08/2023 era isso. A leitura foi combinada antes:
+se houvesse dias zerados na janela de retorno do período, a queda passaria a ser
+ressalva de qualidade dos dados. Não houve, mas a base inteira tem 5 dias sem coleta,
+que entram no documento e no dashboard.
 
-Leitura fixada antes de rodar [PREMISSA]:
-    - dias sem conversa dentro da janela de retorno do período (17/07 a 20/08/2023)
-      -> parte da queda pode ser falha de registro; o achado vira ressalva de dados
-    - nenhum dia sem conversa na janela -> registro contínuo; falha de coleta deixa
-      de explicar a queda (não exclui queda parcial de volume)
-
-Uso:
+Como rodar:
     python scripts/10b_dias_sem_dados.py
 
-Entrada: data/bronze/wildchat_brazil.parquet
-Saída:   relatorios/10b_dias_sem_dados.txt
+Lê:   data/bronze/wildchat_brazil.parquet
+Gera: relatorios/10b_dias_sem_dados.txt
 """
 import sys
 from pathlib import Path
