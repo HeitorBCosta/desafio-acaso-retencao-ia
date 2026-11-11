@@ -1,0 +1,56 @@
+# Sobe tudo do zero com:  docker compose up --build
+# Ordem: banco -> carga (análise + gravação, termina) -> API -> tela.
+# Dashboard em http://localhost:8080
+
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: acaso
+      POSTGRES_PASSWORD: acaso   # senha só de uso local; na AWS fica no Secrets Manager
+      POSTGRES_DB: acaso
+    volumes:
+      - pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U acaso -d acaso"]
+      interval: 5s
+      retries: 20
+
+  carga:
+    build:
+      context: .
+      dockerfile: carga/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://acaso:acaso@db:5432/acaso
+      VERSAO_CODIGO: docker-compose
+    volumes:
+      - ./data:/app/data       # base bruta, bronze, silver e gold ficam no computador
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    build: ./api
+    environment:
+      DATABASE_URL: postgresql://acaso:acaso@db:5432/acaso
+    ports:
+      - "8000:8000"
+    depends_on:
+      carga:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/saude')"]
+      interval: 10s
+      retries: 10
+
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  pgdata:

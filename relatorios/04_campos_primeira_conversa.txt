@@ -113,8 +113,8 @@ usuarios | tem_codigo | recusa | conteudo_repetido | moderacao_sinalizada | toxi
 == [DERIVADO] Recusa por padrão (primeiro padrão que casou)
 recusa_padrao | usuarios
 pt_nao_posso_verbo | 29
-pt_como_ia_nao | 22
 en_i_cant_verbo | 22
+pt_como_ia_nao | 22
 pt_desculpe_nao | 19
 en_ai_model_cant | 13
 en_sorry_but_cant | 11

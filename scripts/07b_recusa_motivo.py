@@ -132,7 +132,8 @@ def main() -> None:
         escrever("Só a política de conteúdo tem IC abaixo de zero: seleção é a explicação mais simples.")
     else:
         escrever("Nenhum dos dois grupos, sozinho, tem IC abaixo de zero: inconclusivo com esta base.")
-    escrever("Limite: motivo foi lido pelo Claude (conferência do Heitor pendente); grupos pequenos.")
+    escrever("Limite: motivo lido pelo Claude; Heitor conferiu 30 recusas sorteadas e concordou com as 30 "
+             "(IC 95% 88,6% a 100%; conferência não cega). Grupos pequenos.")
     out.close()
     print(f"\nRelatório: {RELATORIO}")
 

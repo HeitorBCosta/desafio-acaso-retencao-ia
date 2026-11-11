@@ -32,3 +32,5 @@ Textos iguais (primeiros 200 caracteres) em 5+ usuários: 2 textos, 30 usuários
   texto repetido  2:  10 usuários | tema imagem e vídeo
 
 Validação v2: sorteio entre 2382 usuários fora da 1ª amostra (100 excluídos)
+
+docs\rotulos\tema_validacao_v2.csv já existe; não sobrescrevi

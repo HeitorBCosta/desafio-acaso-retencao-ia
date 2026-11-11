@@ -1,4 +1,5 @@
-# Versões fixadas depois da primeira instalação (pip freeze); ver README.
-fastapi
-uvicorn[standard]
-psycopg[binary,pool]
+# Versões fixadas a partir do pip freeze do ambiente onde a API foi testada (11/11/2026).
+fastapi==0.162.4
+uvicorn[standard]==0.54.0
+psycopg[binary,pool]==3.3.8
+psycopg-pool==3.3.3

@@ -248,7 +248,7 @@ def main() -> None:
     show("[DERIVADO] Modelo (família e versão)",
          """SELECT modelo_familia, modelo_versao, count(*) usuarios,
                    round(100.0 * count(*) / sum(count(*)) OVER (), 1) pct
-            FROM primeira GROUP BY ALL ORDER BY usuarios DESC""")
+            FROM primeira GROUP BY ALL ORDER BY usuarios DESC, 1, 2""")
     show("[MEDIDO] Nº de turnos da primeira conversa",
          """SELECT CASE WHEN turnos >= 5 THEN '5+' ELSE turnos::VARCHAR END faixa,
                    count(*) usuarios, round(100.0 * count(*) / sum(count(*)) OVER (), 1) pct
@@ -260,7 +260,7 @@ def main() -> None:
     show("[DERIVADO] Idioma",
          """SELECT idioma_grupo, count(*) usuarios,
                    round(100.0 * count(*) / sum(count(*)) OVER (), 1) pct
-            FROM primeira GROUP BY 1 ORDER BY usuarios DESC""")
+            FROM primeira GROUP BY 1 ORDER BY usuarios DESC, 1""")
     show("[DERIVADO] Tamanho da pergunta e da resposta (caracteres)",
          """SELECT 'pergunta' campo,
                    quantile_cont(pergunta_chars, [0.1, 0.25, 0.5, 0.75, 0.9, 0.99]) p10_p25_p50_p75_p90_p99,
@@ -280,7 +280,7 @@ def main() -> None:
             FROM primeira""")
     show("[DERIVADO] Primeira mensagem vazia, por tipo (rótulo manual; regra quando não houver)",
          """SELECT pergunta_vazia_tipo, count(*) usuarios FROM primeira
-            WHERE pergunta_vazia GROUP BY 1 ORDER BY usuarios DESC""")
+            WHERE pergunta_vazia GROUP BY 1 ORDER BY usuarios DESC, 1""")
     show("[MEDIDO] Regra x rótulo manual (mensagens vazias)",
          """SELECT pergunta_vazia_tipo_regra AS regra, pergunta_vazia_tipo AS final, count(*) usuarios
             FROM primeira WHERE pergunta_vazia GROUP BY ALL ORDER BY regra, final""")
@@ -309,7 +309,7 @@ def main() -> None:
             FROM primeira""")
     show("[DERIVADO] Recusa por padrão (primeiro padrão que casou)",
          """SELECT recusa_padrao, count(*) usuarios FROM primeira
-            WHERE recusa GROUP BY 1 ORDER BY usuarios DESC""")
+            WHERE recusa GROUP BY 1 ORDER BY usuarios DESC, 1""")
 
     # ------------------------------------------------------------ silver (sem texto)
     con.execute(f"""

@@ -1,0 +1,10 @@
+.git
+.venv
+data
+anexos
+relatorios
+web/node_modules
+web/dist
+**/__pycache__
+**/.pytest_cache
+*.zip

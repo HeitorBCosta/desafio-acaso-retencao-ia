@@ -21,4 +21,4 @@ política de conteúdo | 40 | 9 | -1.2 [-14.3; +11.9] | não | -4.0 / -3.1 / -0.
 
 == Aplicação da leitura fixada
 Só a limitação do produto tem IC abaixo de zero: a leitura 'o produto contribui' fica mais forte.
-Limite: motivo foi lido pelo Claude (conferência do Heitor pendente); grupos pequenos.
+Limite: motivo lido pelo Claude; Heitor conferiu 30 recusas sorteadas e concordou com as 30 (IC 95% 88,6% a 100%; conferência não cega). Grupos pequenos.
