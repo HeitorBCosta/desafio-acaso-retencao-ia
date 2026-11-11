@@ -37,5 +37,5 @@ Acerto da regra v1: 54 de 116 (47%) contando só "não atendido"; 88 de 116 (76%
 
 ## Pendências
 
-- Os rótulos foram lidos pelo Claude; a conferência do Heitor está pendente (coluna `conferido_por`).
+- Os rótulos foram lidos pelo Claude. Em 11/11/2026, o Heitor conferiu uma amostra de 30 das 129 recusas (sorteio do script 12) e concordou com o resultado e o motivo em todas: 30 de 30, IC 95% de 88,6% a 100%. A conferência não foi cega (o rótulo aparecia ao lado do texto), o que pode inflar a concordância. Os casos conferidos estão marcados na coluna `conferido_por`.
 - A regra v1 pode ter deixado recusas passar. A leitura de `05_recusa_dirigida.csv` (140 respostas não marcadas que têm palavras-chave de recusa) mede isso.

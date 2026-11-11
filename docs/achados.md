@@ -18,7 +18,7 @@ Rótulos: [MEDIDO] saiu de script; [DERIVADO] conta feita sobre números medidos
 - [DERIVADO] Se voltassem na taxa de quem não teve recusa, a taxa geral iria de 24,1% para 24,7% (teto, supondo efeito todo causal).
 - [DERIVADO] Teste A/B (recusa atual vs recusa com alternativa): reduzir metade da diferença (7,2% -> 16%) exige 207 usuários por braço ([PREMISSA] alfa 5% bilateral, poder 80%).
 
-**O que não prova:** não separa "recebeu um não" de "o produto não serve para o que ele queria" (as duas levam à mesma ação); só 6 retornos no grupo; motivos lidos pelo Claude, conferência do Heitor pendente.
+**O que não prova:** não separa "recebeu um não" de "o produto não serve para o que ele queria" (as duas levam à mesma ação); só 6 retornos no grupo; motivos lidos pelo Claude e conferidos pelo Heitor numa amostra de 30 das 129 recusas, com concordância em todas (IC 95% de 88,6% a 100%; conferência não cega).
 
 ## 2. Quem chega sem pedido (só "oi", "teste" ou mensagem vazia) volta menos
 
