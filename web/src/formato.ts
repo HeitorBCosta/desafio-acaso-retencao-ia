@@ -5,11 +5,18 @@ const MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "o
 export const pct = (x: number | null | undefined, casas = 1) =>
   x == null ? "—" : `${(x * 100).toFixed(casas).replace(".", ",")}%`;
 
+/** Diferença com sinal, sem unidade: 0,17 -> "+17,0". Usado onde a unidade já está no título. */
+export const sinal = (x: number | null | undefined) =>
+  x == null ? "—" : `${x >= 0 ? "+" : "−"}${Math.abs(x * 100).toFixed(1).replace(".", ",")}`;
+
+/** Diferença com unidade por extenso: "+17,0 pontos percentuais" (singular abaixo de 2). */
 export const pp = (x: number | null | undefined) =>
-  x == null ? "—" : `${x >= 0 ? "+" : "−"}${Math.abs(x * 100).toFixed(1).replace(".", ",")} pp`;
+  x == null
+    ? "—"
+    : `${sinal(x)} ${Number(Math.abs(x * 100).toFixed(1)) < 2 ? "ponto percentual" : "pontos percentuais"}`;
 
 export const intervaloPp = (baixo: number | null, alto: number | null) =>
-  baixo == null || alto == null ? "" : `[${pp(baixo).replace(" pp", "")}; ${pp(alto).replace(" pp", "")}]`;
+  baixo == null || alto == null ? "" : `[${sinal(baixo)}; ${sinal(alto)}]`;
 
 export const intervaloPct = (baixo: number | null, alto: number | null) =>
   baixo == null || alto == null ? "" : `${pct(baixo)} a ${pct(alto)}`;

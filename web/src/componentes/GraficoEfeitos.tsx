@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Efeito } from "../api";
-import { intervaloPp, inteiro, pct, pp } from "../formato";
+import { intervaloPp, inteiro, pct, pp, sinal } from "../formato";
 
 // Gráfico de pontos com intervalo (forest plot) desenhado em SVG: um efeito por linha,
 // todos na mesma escala em pontos percentuais, com a linha do zero como referência.
@@ -67,7 +67,7 @@ export function GraficoEfeitos({ efeitos, titulo }: { efeitos: Efeito[]; titulo:
                 stroke={cor} strokeWidth={2} strokeLinecap="round" />
               <circle cx={x(e.ajustado!)} cy={y} r={5} fill={sustenta ? cor : "#fcfcfb"}
                 stroke={sustenta ? "#fcfcfb" : cor} strokeWidth={2} />
-              <text x={ESQ + MEIO + 8} y={y - 3} className="valor">{pp(e.ajustado)}</text>
+              <text x={ESQ + MEIO + 8} y={y - 3} className="valor">{sinal(e.ajustado)}</text>
               <text x={ESQ + MEIO + 8} y={y + 12} className="rotulo-ref">
                 {intervaloPp(e.ajustado_ic_baixo, e.ajustado_ic_alto)}{e.aviso ? " · poucos casos" : ""}
               </text>

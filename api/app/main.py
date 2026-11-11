@@ -43,7 +43,7 @@ async def ciclo_de_vida(app: FastAPI):
     pool.close()
 
 
-app = FastAPI(title="Retenção do assistente de IA — Brasil", version="1.0", lifespan=ciclo_de_vida)
+app = FastAPI(title="Retenção do assistente de inteligência artificial — Brasil", version="1.0", lifespan=ciclo_de_vida)
 
 
 def carga_atual() -> str | None:

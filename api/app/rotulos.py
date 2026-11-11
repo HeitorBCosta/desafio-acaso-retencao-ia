@@ -8,7 +8,7 @@ MIN_COORTE = 40
 
 FATORES = {
     "modelo": "Modelo da 1ª conversa",
-    "turnos_faixa": "Nº de trocas (pergunta e resposta) na 1ª conversa",
+    "turnos_faixa": "Nº de mensagens enviadas na 1ª conversa",
     "periodo_dia": "Horário da 1ª conversa (Brasília)",
     "fim_de_semana": "Chegou no fim de semana",
     "primeira_mensagem": "Como foi a 1ª mensagem",
@@ -23,7 +23,7 @@ FATORES = {
 
 # Nomes de nível mais claros para quem lê a tela (o valor original continua em "nivel").
 NIVEIS = {
-    "turnos_faixa": {"1": "1 troca", "2": "2 trocas", "3-4": "3 a 4 trocas", "5+": "5 ou mais trocas"},
+    "turnos_faixa": {"1": "1 mensagem", "2": "2 mensagens", "3-4": "3 ou 4 mensagens", "5+": "5 ou mais mensagens"},
     "recusa": {"sim": "pedido não atendido", "não": "pedido atendido"},
     "codigo": {"sim": "com código", "não": "sem código"},
     "fim_de_semana": {"sim": "sábado ou domingo", "não": "segunda a sexta"},
@@ -62,7 +62,7 @@ DEFINICOES = {
     },
     "base_pequena": {
         "titulo": "Base pequena",
-        "texto": (f"Menos de {MIN_COORTE} novos usuários: a taxa varia mais de 13 pontos só por "
+        "texto": (f"Menos de {MIN_COORTE} novos usuários: a taxa varia mais de 13 pontos percentuais só por "
                   "acaso, então o ponto aparece vazado e sem intervalo."),
         "fonte": "api/app/rotulos.py",
     },

@@ -23,7 +23,7 @@ export default function App() {
     <div className="pagina">
       <header className="topo">
         <div>
-          <h1>Retenção do assistente de IA — Brasil</h1>
+          <h1>Retenção do assistente de inteligência artificial — Brasil</h1>
           <p className="subtitulo-topo">Quem experimenta o assistente volta em até 7 dias? O que faz voltar?</p>
         </div>
         <nav className="abas" aria-label="Telas">
@@ -35,7 +35,7 @@ export default function App() {
       </header>
 
       <main>
-        {erro && <p className="erro" role="alert">Não foi possível conectar à API: {erro}</p>}
+        {erro && <p className="erro" role="alert">Não foi possível carregar os dados do backend: {erro}</p>}
         {!erro && (!defs || !periodo) && <p className="carregando">Carregando…</p>}
         {defs && periodo && tela === "retencao" && <Retencao defs={defs} periodo={periodo} />}
         {defs && tela === "efeitos" && <OQueFazVoltar defs={defs} />}

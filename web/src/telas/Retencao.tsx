@@ -99,7 +99,7 @@ export function Retencao({ defs, periodo }: { defs: Definicoes; periodo: { inici
           <Cartao titulo="Novos usuários" valor={inteiro(visao.novos)} definicao={d.novos}
             detalhe={`chegaram de ${data(visao.inicio)} a ${data(visao.fim)}`} />
           <Cartao titulo="Voltaram em até 7 dias" valor={inteiro(visao.voltaram)} definicao={d.voltaram}
-            detalhe="começaram uma nova sessão na semana seguinte à 1ª conversa" />
+            detalhe="começaram uma nova sessão nos 7 dias seguintes à 1ª conversa" />
           <Cartao titulo="Taxa de retorno em 7 dias" definicao={d.taxa}
             valor={visao.base_pequena ? "base pequena" : pct(visao.taxa)}
             detalhe={visao.base_pequena
@@ -200,7 +200,7 @@ function DicaCoorte({ active, payload, granularidade, periodosSemDados }: {
       <div>{inteiro(l.novos)} novos usuários, {inteiro(l.voltaram)} voltaram</div>
       <div>Taxa de retorno: <strong>{pct(l.taxa)}</strong></div>
       {l.base_pequena
-        ? <div className="aviso">Base pequena: a taxa pode variar mais de 13 pontos só por acaso.</div>
+        ? <div className="aviso">Base pequena: a taxa pode variar mais de 13 pontos percentuais só por acaso.</div>
         : <div>Valor provável: {intervaloPct(l.ic_baixo, l.ic_alto)}</div>}
       {semDados && <div className="aviso">Sem coleta em {semDados.map(data).join(", ")}.</div>}
     </div>

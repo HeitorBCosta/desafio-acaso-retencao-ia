@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api, type Definicoes, type Efeito } from "../api";
 import { Ajuda } from "../componentes/Ajuda";
 import { GraficoEfeitos } from "../componentes/GraficoEfeitos";
-import { intervaloPp, inteiro, pct, pp } from "../formato";
+import { intervaloPp, inteiro, pct, pp, sinal } from "../formato";
 
 export function OQueFazVoltar({ defs }: { defs: Definicoes }) {
   const [efeitos, setEfeitos] = useState<Efeito[]>([]);
@@ -92,19 +92,19 @@ function Achados({ limitacao, politica, semPedido, gpt4 }: Record<string, Efeito
             {intervaloPp(semPedido.ajustado_ic_baixo, semPedido.ajustado_ic_alto)}.
           </p>
           <p className="decisao"><strong>Decisão:</strong> primeiro uso guiado: responder ao cumprimento com exemplos
-            do que o assistente sabe fazer, e medir num teste A/B.</p>
-          <p className="limite">Pode ser seleção (quem só quer ver o que é); o teste confirma.</p>
+            do que o assistente sabe fazer, e confirmar num experimento com grupos sorteados.</p>
+          <p className="limite">Pode ser perfil de quem chega (quem só quer ver o que é); o experimento separa as duas coisas.</p>
         </article>
       )}
       {gpt4 && (
         <article className="achado">
-          <h3>3. Usar GPT-4 não aumenta o retorno</h3>
+          <h3>3. Oferecer o GPT-4 não aumenta o retorno</h3>
           <p>
             Comparando grupos equilibrados: {pp(gpt4.ajustado)}{" "}
             {intervaloPp(gpt4.ajustado_ic_baixo, gpt4.ajustado_ic_alto)}. A faixa cruza o zero; uma vantagem do
             GPT-4 acima de {pp(gpt4.ajustado_ic_alto).replace("+", "")} é improvável com estes dados.
           </p>
-          <p className="decisao"><strong>Decisão:</strong> não usar o modelo mais avançado como alavanca de
+          <p className="decisao"><strong>Decisão:</strong> não usar o modelo mais avançado como estratégia de
             retenção.</p>
           <p className="limite">Não prova ausência de efeito; só os trimestres com os dois modelos em uso.</p>
         </article>
@@ -120,7 +120,7 @@ function TabelaEfeitos({ efeitos }: { efeitos: Efeito[] }) {
         <thead>
           <tr>
             <th>Fator</th><th>Grupo</th><th>Referência</th><th>Pessoas</th><th>Voltaram</th>
-            <th>Diferença simples</th><th>Entre pessoas parecidas</th><th>Se sustenta?</th><th>Fonte</th>
+            <th>Diferença simples (pontos percentuais)</th><th>Entre pessoas parecidas (pontos percentuais)</th><th>Se sustenta?</th><th>Fonte</th>
           </tr>
         </thead>
         <tbody>
@@ -131,8 +131,8 @@ function TabelaEfeitos({ efeitos }: { efeitos: Efeito[] }) {
               <td>{e.rotulo_referencia} ({pct(e.taxa_referencia)})</td>
               <td className="num">{inteiro(e.usuarios)}</td>
               <td className="num">{pct(e.taxa)}</td>
-              <td>{pp(e.bruto)} {intervaloPp(e.bruto_ic_baixo, e.bruto_ic_alto)}</td>
-              <td>{pp(e.ajustado)} {intervaloPp(e.ajustado_ic_baixo, e.ajustado_ic_alto)}</td>
+              <td>{sinal(e.bruto)} {intervaloPp(e.bruto_ic_baixo, e.bruto_ic_alto)}</td>
+              <td>{sinal(e.ajustado)} {intervaloPp(e.ajustado_ic_baixo, e.ajustado_ic_alto)}</td>
               <td>{e.ic_exclui_zero ? "sim" : "não"}{e.aviso ? " (poucos casos)" : ""}</td>
               <td className="fonte">{e.fonte}</td>
             </tr>

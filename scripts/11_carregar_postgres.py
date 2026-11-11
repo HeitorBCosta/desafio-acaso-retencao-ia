@@ -147,9 +147,9 @@ def linhas_efeitos() -> list[dict]:
             "taxa_referencia": taxa_ref[(r.fator, ref)],
             "bruto": r.bruto, "bruto_ic_baixo": r.bruto_ic_baixo, "bruto_ic_alto": r.bruto_ic_alto,
             "ajustado": r.efeito, "ajustado_ic_baixo": r.ic_baixo, "ajustado_ic_alto": r.ic_alto,
-            "metodo": ("regressão logística, efeito marginal médio (IC pelo método delta); "
+            "metodo": ("regressão logística, efeito marginal médio (intervalo pelo método delta); "
                        + ("modelo alternativo com a recusa em 3 níveis; " if alt else "")
-                       + "bruto: diferença de taxas (IC de Newcombe)"),
+                       + "bruto: diferença de taxas (intervalo de Newcombe)"),
             "aviso": AVISO_POUCOS if (r.usuarios < MIN_USUARIOS or r.voltaram < MIN_RETORNOS) else None,
             "fonte": "scripts/07_efeitos.py -> relatorios/07_efeitos.txt",
         })
@@ -160,7 +160,7 @@ def linhas_efeitos() -> list[dict]:
             "usuarios": r.usuarios, "voltaram": r.voltaram, "taxa": r.taxa, "taxa_referencia": r.taxa_referencia,
             "bruto": r.bruto, "bruto_ic_baixo": r.bruto_ic_baixo, "bruto_ic_alto": r.bruto_ic_alto,
             "ajustado": r.efeito, "ajustado_ic_baixo": r.ic_baixo, "ajustado_ic_alto": r.ic_alto,
-            "metodo": "mesmo modelo do script 07 com a recusa trocada pelo motivo; bruto: Newcombe",
+            "metodo": "mesmo modelo do script 07 com a recusa trocada pelo motivo; bruto: intervalo de Newcombe",
             "aviso": AVISO_POUCOS if (r.usuarios < MIN_USUARIOS or r.voltaram < MIN_RETORNOS) else None,
             "fonte": "scripts/07b_recusa_motivo.py -> relatorios/07b_recusa_motivo.txt",
         })
@@ -171,7 +171,7 @@ def linhas_efeitos() -> list[dict]:
             "usuarios": r.usuarios, "voltaram": r.voltaram, "taxa": r.taxa, "taxa_referencia": r.taxa_referencia,
             "bruto": r.bruto, "bruto_ic_baixo": r.bruto_ic_baixo, "bruto_ic_alto": r.bruto_ic_alto,
             "ajustado": r.efeito, "ajustado_ic_baixo": r.ic_baixo, "ajustado_ic_alto": r.ic_alto,
-            "metodo": (f"ponderação pela probabilidade de escolha (IPTW), IC por bootstrap "
+            "metodo": (f"ponderação pela probabilidade de escolher o GPT-4, intervalo por bootstrap "
                        f"({int(r.reamostragens)} reamostragens); só trimestres com os dois modelos: {r.recorte}"),
             "aviso": None,
             "fonte": "scripts/09_gpt4_selecao.py -> relatorios/09_gpt4_selecao.txt",
