@@ -106,8 +106,9 @@ rótulos versionados em `docs/rotulos/` têm só o id da conversa e o rótulo.
 - `docs/documento.md`: o documento da entrega (definições, qualidade dos dados, efeitos,
   confusão, semana atípica, achados, dashboard, monitoramento, incidente, riscos e uso de IA).
 - `docs/bdr/`: decisões de negócio (definição de usuário, primeira experiência, retorno e
-  sessão, mensagem sem pedido, recusa).
-- `docs/adr/`: decisões técnicas (base analítica em PostgreSQL).
+  sessão, mensagem sem pedido, recusa, tema fora do modelo, recusa por motivo).
+- `docs/adr/`: decisões técnicas (base analítica em PostgreSQL, stack do dashboard,
+  pré-cálculo e cache, implantação na AWS).
 - `docs/dashboard_desenho.md`: telas, indicadores, modelo da base e endpoints.
 - `docs/achados.md`: os três achados e a decisão que cada um sustenta.
 - `docs/rotulos/`: rótulos lidos à mão e conferências.
