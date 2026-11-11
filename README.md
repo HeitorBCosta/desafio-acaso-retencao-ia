@@ -8,7 +8,7 @@ licença ODC-BY) e um dashboard que leva os resultados a quem decide.
   quanto pesa cada fator e quanto disso é causa e não seleção.
 - **Base:** 11.621 conversas do Brasil, de abril de 2023 a abril de 2024; 2.482 usuários novos
   com 7 dias observados, dos quais 598 voltaram (24,1%).
-- **Documento com os achados e as decisões:** `docs/` (ver a seção [Documentação](#documentação)).
+- **Documento com os achados e as decisões:** [`docs/documento.md`](docs/documento.md).
 
 ## Como subir o dashboard
 
@@ -90,7 +90,8 @@ Ordem da análise: 01 baixa a base · 02 e 03 testam definições de usuário e 
 campos da primeira conversa · 05 e 05b separam amostras para leitura · 06 calcula o retorno ·
 07 mede os efeitos · 07b separa a recusa pelo motivo · 08 e 08b classificam o tema · 09 trata a
 seleção do GPT-4 · 10 e 10b analisam a semana atípica e os dias sem coleta · 11 carrega o
-PostgreSQL · 12 sorteia recusas para conferência.
+PostgreSQL · 12 sorteia recusas para conferência · 13 mede o peso dos dias sem coleta · 14 testa
+na base real o mecanismo do incidente da seção 4.2 (chave de usuário).
 
 ## Dados pessoais
 
@@ -102,6 +103,8 @@ rótulos versionados em `docs/rotulos/` têm só o id da conversa e o rótulo.
 
 ## Documentação
 
+- `docs/documento.md`: o documento da entrega (definições, qualidade dos dados, efeitos,
+  confusão, semana atípica, achados, dashboard, monitoramento, incidente, riscos e uso de IA).
 - `docs/bdr/`: decisões de negócio (definição de usuário, primeira experiência, retorno e
   sessão, mensagem sem pedido, recusa).
 - `docs/adr/`: decisões técnicas (base analítica em PostgreSQL).

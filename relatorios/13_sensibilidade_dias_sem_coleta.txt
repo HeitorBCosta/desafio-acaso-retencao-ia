@@ -1,0 +1,20 @@
+Dias sem conversa (horário de Brasília): 2023-10-13, 2023-10-14, 2024-01-17, 2024-01-18, 2024-01-19
+Conferência com o 10b: OK
+Conferência com o 06: 2482 elegíveis, 598 voltaram | OK
+
+== [MEDIDO] Retorno em 7 dias com e sem os afetados (sessão de 30 min)
+grupo | usuarios | voltaram | taxa | ic95
+todos | 2482 | 598 | 24.1% | [22.5%, 25.8%]
+afetados | 51 | 13 | 25.5% | [15.5%, 38.9%]
+sem os afetados | 2431 | 585 | 24.1% | [22.4%, 25.8%]
+
+== [MEDIDO] Afetados por semana de chegada (segunda a domingo, horário de Brasília)
+semana | elegiveis_na_semana | afetados | voltaram_entre_afetados
+2023-10-02 | 35 | 12 | 2
+2023-10-09 | 9 | 8 | 0
+2024-01-08 | 26 | 19 | 9
+2024-01-15 | 24 | 12 | 2
+
+== Aplicação da leitura fixada
+Sem os afetados: 24.1%; IC 95% da taxa principal: [22.5%, 25.8%]
+Dentro do IC: a lacuna não muda o resultado geral. Todos ficam na análise; ressalva nas semanas listadas acima.
