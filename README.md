@@ -8,7 +8,7 @@ licença ODC-BY) e um dashboard que leva os resultados a quem decide.
   quanto pesa cada fator e quanto disso é causa e não seleção.
 - **Base:** 11.621 conversas do Brasil, de abril de 2023 a abril de 2024; 2.482 usuários novos
   com 7 dias observados, dos quais 598 voltaram (24,1%).
-- **Documento com os achados e as decisões:** [`docs/documento.md`](docs/documento.md).
+- **Documento com os achados e as decisões:** [`docs/documento.md`](docs/documento.md) (também em PDF: [`docs/documento.pdf`](docs/documento.pdf)).
 
 ## Como subir o dashboard
 
